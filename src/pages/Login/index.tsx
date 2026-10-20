@@ -1,5 +1,5 @@
 import { useState } from "react";
-import LoginForm from '../../components/LoginForm';
+import LoginForm from '../../components/LoginForm/LoginForm';
 import type { LoginFormValues } from '../../types/type';
 import { useNavigate } from 'react-router-dom';
 

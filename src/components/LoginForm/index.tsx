@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { ChangeEvent, SubmitEvent } from 'react';
-import type { LoginFormValues, LoginFormErrors } from '../types/type';
+import type { LoginFormValues, LoginFormErrors } from '../../types/type';
 
 type LoginProps = {
   onSubmit: (values: LoginFormValues) => void;
