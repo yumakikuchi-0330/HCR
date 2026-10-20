@@ -7,7 +7,6 @@ type Props = {
 }
 
 export const Button = ({size,text}: Props) =>{
-
   if(size === 'small'){
     return <button className="small">{text}</button>
   }
