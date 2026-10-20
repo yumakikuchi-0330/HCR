@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import type { DateClickArg } from '@fullcalendar/interaction';
 import type { DayCellContentArg } from '@fullcalendar/core';
-import type { AvailableDate } from "../types/management";
+import type { AvailableDate } from "../../types/management";
 
 // 親コンポーネントから予約可能なイベント情報の配列を受け取る
 type Props = { events: AvailableDate[]  };

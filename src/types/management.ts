@@ -1,4 +1,4 @@
-
+import type { CourseId, ReservationStatusId } from './type';
 
 // 選択された日付と時間の型
 export type SelectionValue = {
@@ -19,17 +19,15 @@ export type Patient = {
   note?: string;       // 連絡事項
 };
 
-export type ReservationStatus =  "受診前" | "受診済" | "受診中" | "キャンセル";
-
 // 患者情報入力
 export type Reservation = {
   id: string;
   patientId: string;
-  course: string;// 人間ドック、定期健診、生活習慣病
+  courseId: CourseId;
   date: string;
   time: string;
   options: string[];
-  status: ReservationStatus;
+  status: ReservationStatusId;
 };
 
 // 予約可能な日
