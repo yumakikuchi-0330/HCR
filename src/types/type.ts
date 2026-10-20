@@ -25,33 +25,37 @@ export const RESERVATION_STATUSES = [
 export type ReservationStatus = (typeof RESERVATION_STATUSES)[number];
 export type ReservationStatusId = ReservationStatus['statusId'];
 
-// 予約可能な時間帯
-export const AVAILABLE_TIMES: readonly string[] = [
-  '09:00', '10:00', '11:00', '12:00',
-  '14:00', '15:00', '16:00', '17:00', '18:00',
-];
-
-const DAYS = 24;
+// 時間
 export type TimeSlot = {
   time: string;
   isAvailable: boolean;
   reservedBy: string | null;
 };
 
-const slots: TimeSlot[] = [];
-// 0時から23時まで1時間ごと
-for (let hour = 0; hour < DAYS; hour++) {
-  // 0〜9時は先頭に0をつける
-  let hourString = String(hour);
-  if (hour < 10) {
-    hourString = '0' + hour;
-  }
-  const time = hourString + ':00';
-  slots.push({
-    time,
-    isAvailable: AVAILABLE_TIMES.includes(time), // 予約できる時間か判定
-    reservedBy: null, // 予約している人のID
-  });
-}
-
-export const TIME_SLOTS: readonly TimeSlot[] = slots;
+// 予約時間枠（0:00〜23:00[13時は昼休み、9:00〜18:00が予約可能]）
+export const TIME_SLOTS: readonly TimeSlot[] = [
+  { time: '00:00', isAvailable: false, reservedBy: null },
+  { time: '01:00', isAvailable: false, reservedBy: null },
+  { time: '02:00', isAvailable: false, reservedBy: null },
+  { time: '03:00', isAvailable: false, reservedBy: null },
+  { time: '04:00', isAvailable: false, reservedBy: null },
+  { time: '05:00', isAvailable: false, reservedBy: null },
+  { time: '06:00', isAvailable: false, reservedBy: null },
+  { time: '07:00', isAvailable: false, reservedBy: null },
+  { time: '08:00', isAvailable: false, reservedBy: null },
+  { time: '09:00', isAvailable: true,  reservedBy: null },
+  { time: '10:00', isAvailable: true,  reservedBy: null },
+  { time: '11:00', isAvailable: true,  reservedBy: null },
+  { time: '12:00', isAvailable: true,  reservedBy: null },
+  { time: '13:00', isAvailable: false, reservedBy: null }, // 昼休み
+  { time: '14:00', isAvailable: true,  reservedBy: null },
+  { time: '15:00', isAvailable: true,  reservedBy: null },
+  { time: '16:00', isAvailable: true,  reservedBy: null },
+  { time: '17:00', isAvailable: true,  reservedBy: null },
+  { time: '18:00', isAvailable: true,  reservedBy: null },
+  { time: '19:00', isAvailable: false, reservedBy: null },
+  { time: '20:00', isAvailable: false, reservedBy: null },
+  { time: '21:00', isAvailable: false, reservedBy: null },
+  { time: '22:00', isAvailable: false, reservedBy: null },
+  { time: '23:00', isAvailable: false, reservedBy: null },
+];

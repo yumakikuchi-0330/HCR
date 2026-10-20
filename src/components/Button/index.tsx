@@ -1,5 +1,5 @@
 import React from "react"
-import './button.css';
+import './style.css';
 
 type Props = {
   size?: 'small' | 'medium' | 'large';
