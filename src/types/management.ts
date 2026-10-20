@@ -1,0 +1,38 @@
+
+
+// 選択された日付と時間の型
+export type SelectionValue = {
+  data: string | null;
+  time: string | null;
+};
+
+// 患者データ
+export type Patient = {
+  id: string;
+  name: string;
+  nameKana: string;
+  birthDate: string;
+  gender: '男性' | '女性';
+  insurance?: string; // 健保
+  address?: string;
+  medicalHistory?: string;// 既往歴
+  note?: string;       // 連絡事項
+};
+
+export type ReservationStatus =  "受診前" | "受診済" | "受診中" | "キャンセル";
+
+// 患者情報入力
+export type Reservation = {
+  id: string;
+  patientId: string;
+  course: string;// 人間ドック、定期健診、生活習慣病
+  date: string;
+  time: string;
+  options: string[];
+  status: ReservationStatus;
+};
+
+// 予約可能な日
+export type AvailableDate = {
+  date: string;
+};
