@@ -1,0 +1,31 @@
+.status-badge{
+  display: inline-block;
+  width: 80px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* 受診前 */
+.status-badge--before{
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+/* 受診中 */
+.status-badge--inProgress{
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+/* 受診済 */
+.status-badge--complete{
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* キャンセル */
+.status-badge--cancel{
+  background-color: #eeeeee;
+  color: #616161;
+}
