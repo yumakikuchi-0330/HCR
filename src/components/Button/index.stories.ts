@@ -1,12 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-
-import { fn } from 'storybook/test';
-
-import { Header } from './Header';
+import  {Button} from '.';
 
 const meta = {
-  title: 'Example/Header',
-  component: Header,
+  title: 'Components/Button',
+  component: Button,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   parameters: {
@@ -14,21 +11,12 @@ const meta = {
     layout: 'fullscreen',
   },
   args: {
-    onLogin: fn(),
-    onLogout: fn(),
-    onCreateAccount: fn(),
+    text: "ボタン"
   },
-} satisfies Meta<typeof Header>;
+} satisfies Meta<typeof Button>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const LoggedIn: Story = {
-  args: {
-    user: {
-      name: 'Jane Doe',
-    },
-  },
-};
-
-export const LoggedOut: Story = {};
+export type Story = StoryObj<typeof meta>;
+export const Small: Story = { args: { size: 'small' } };
+export const Medium: Story = { args: { size: 'medium' } };
+export const Large: Story = { args: { size: 'large' } };
