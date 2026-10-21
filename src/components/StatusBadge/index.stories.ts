@@ -11,13 +11,14 @@ const meta = {
     layout: 'fullscreen',
   },
   args: {
-    statusId: 'before',
+    label: '受診前',
+    situation: 'before'
   },
 } satisfies Meta<typeof StatusBadge>;
 
 export default meta;
 export type Story = StoryObj<typeof meta>;
-export const Before: Story = { args: { statusId: 'before' } };
-export const InProgress: Story = { args: { statusId: 'inProgress' } };
-export const Complete: Story = { args: { statusId: 'complete' } };
-export const Cancel: Story = { args: { statusId: 'cancel' } };
+export const Before: Story = { args: { label: '受診前' , situation: 'before'} ,};
+export const InProgress: Story = { args: { label: '受診中' , situation:'inProgress' } };
+export const Complete: Story = { args: { label: '受診済' , situation:'complete' } };
+export const Cancel: Story = { args: { label: 'キャンセル' , situation:'cancel' } };

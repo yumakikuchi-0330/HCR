@@ -1,4 +1,4 @@
-import type { CourseId, ReservationStatusId } from './type';
+import type { CourseId } from './type';
 
 // 選択された日付と時間の型
 export type SelectionValue = {
@@ -27,7 +27,7 @@ export type Reservation = {
   date: string;
   time: string;
   options: string[];
-  status: ReservationStatusId;
+  status: 'before' | 'inProgress' | 'complete' | 'cancel';
 };
 
 // 予約可能な日
