@@ -3,7 +3,7 @@ import './style.css';
 
 type Props = {
   label: string;
-  situation?: 'before' | 'inProgress' | 'complete' | 'cancel';
+  situation: 'before' | 'inProgress' | 'complete' | 'cancel';
 };
 
 export const StatusBadge = ({label, situation}: Props) =>{
