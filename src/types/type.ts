@@ -15,16 +15,6 @@ export const COURSES = [
 export type Course = (typeof COURSES)[number];
 export type CourseId = Course['courseId'];
 
-// 予約ステータス
-export const RESERVATION_STATUSES = [
-  { statusId: 'before', statusName: '受診前' },
-  { statusId: 'inProgress', statusName: '受診中' },
-  { statusId: 'complete', statusName: '受診済' },
-  { statusId: 'cancel', statusName: 'キャンセル' },
-] as const;
-export type ReservationStatus = (typeof RESERVATION_STATUSES)[number];
-export type ReservationStatusId = ReservationStatus['statusId'];
-
 // 時間
 export type TimeSlot = {
   time: string;
