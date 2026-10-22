@@ -1,9 +1,15 @@
-import type { CourseId, OptionId } from './type';
+import type { CourseId } from './type';
 
 // 選択された日付と時間の型
 export type SelectionValue = {
   data: string | null;
   time: string | null;
+};
+
+// 検査オプション
+export type Option = {
+  optionId: number;
+  optionName: string;
 };
 
 // 患者データ
@@ -26,7 +32,7 @@ export type Reservation = {
   courseId: CourseId;
   date: string;
   time: string;
-  optionIds: OptionId[];
+  optionIds: Option[];
   status: 'before' | 'inProgress' | 'complete' | 'cancel';
 };
 
