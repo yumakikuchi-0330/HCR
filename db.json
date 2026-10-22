@@ -1,0 +1,496 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "loginId": "user001",
+      "password": "Pass0001"
+    },
+    {
+      "id": "2",
+      "loginId": "user002",
+      "password": "Pass0002"
+    },
+    {
+      "id": "3",
+      "loginId": "user003",
+      "password": "Pass0003"
+    }
+  ],
+  "patients": [
+    {
+      "id": "1",
+      "name": "山田太郎",
+      "nameKana": "ヤマダタロウ",
+      "birthDate": "1980-04-12",
+      "gender": "男性",
+      "insurance": "協会けんぽ",
+      "address": "東京都新宿区西新宿1-1-1",
+      "note": "前回、血圧高め"
+    },
+    {
+      "id": "2",
+      "name": "佐藤花子",
+      "nameKana": "サトウハナコ",
+      "birthDate": "1985-07-23",
+      "gender": "女性",
+      "insurance": "組合健保",
+      "address": "東京都渋谷区神南2-2-2",
+      "medicalHistory": "高血圧"
+    },
+    {
+      "id": "3",
+      "name": "鈴木一郎",
+      "nameKana": "スズキイチロウ",
+      "birthDate": "1972-01-30",
+      "gender": "男性",
+      "insurance": "国民健康保険",
+      "address": "神奈川県横浜市西区3-3-3"
+    },
+    {
+      "id": "4",
+      "name": "高橋美咲",
+      "nameKana": "タカハシミサキ",
+      "birthDate": "1990-11-05",
+      "gender": "女性",
+      "insurance": "共済組合",
+      "address": "埼玉県さいたま市大宮区4-4-4",
+      "medicalHistory": "糖尿病",
+      "note": "前回、血圧高め"
+    },
+    {
+      "id": "5",
+      "name": "田中健太",
+      "nameKana": "タナカケンタ",
+      "birthDate": "1988-03-18",
+      "gender": "男性",
+      "insurance": "協会けんぽ",
+      "address": "千葉県千葉市中央区5-5-5"
+    },
+    {
+      "id": "6",
+      "name": "伊藤由美",
+      "nameKana": "イトウユミ",
+      "birthDate": "1979-09-09",
+      "gender": "女性",
+      "insurance": "組合健保",
+      "address": "東京都新宿区西新宿1-6-6",
+      "medicalHistory": "脂質異常症"
+    },
+    {
+      "id": "7",
+      "name": "渡辺大輔",
+      "nameKana": "ワタナベダイスケ",
+      "birthDate": "1983-06-27",
+      "gender": "男性",
+      "insurance": "国民健康保険",
+      "address": "東京都渋谷区神南2-7-7",
+      "medicalHistory": "喘息",
+      "note": "前回、血圧高め"
+    },
+    {
+      "id": "8",
+      "name": "中村彩",
+      "nameKana": "ナカムラアヤ",
+      "birthDate": "1995-02-14",
+      "gender": "女性",
+      "insurance": "共済組合",
+      "address": "神奈川県横浜市西区3-8-8"
+    },
+    {
+      "id": "9",
+      "name": "小林誠",
+      "nameKana": "コバヤシマコト",
+      "birthDate": "1968-12-01",
+      "gender": "男性",
+      "insurance": "協会けんぽ",
+      "address": "埼玉県さいたま市大宮区4-9-9"
+    },
+    {
+      "id": "10",
+      "name": "加藤真理子",
+      "nameKana": "カトウマリコ",
+      "birthDate": "1975-05-20",
+      "gender": "女性",
+      "insurance": "組合健保",
+      "address": "千葉県千葉市中央区5-1-10",
+      "medicalHistory": "高血圧",
+      "note": "前回、血圧高め"
+    },
+    {
+      "id": "11",
+      "name": "吉田翔太",
+      "nameKana": "ヨシダショウタ",
+      "birthDate": "1992-08-08",
+      "gender": "男性",
+      "insurance": "国民健康保険",
+      "address": "東京都新宿区西新宿1-2-11"
+    },
+    {
+      "id": "12",
+      "name": "山本恵",
+      "nameKana": "ヤマモトメグミ",
+      "birthDate": "1987-10-31",
+      "gender": "女性",
+      "insurance": "共済組合",
+      "address": "東京都渋谷区神南2-3-12",
+      "medicalHistory": "糖尿病"
+    },
+    {
+      "id": "13",
+      "name": "松本隆",
+      "nameKana": "マツモトタカシ",
+      "birthDate": "1965-04-04",
+      "gender": "男性",
+      "insurance": "協会けんぽ",
+      "address": "神奈川県横浜市西区3-4-13",
+      "note": "前回、血圧高め"
+    },
+    {
+      "id": "14",
+      "name": "井上さくら",
+      "nameKana": "イノウエサクラ",
+      "birthDate": "1998-03-25",
+      "gender": "女性",
+      "insurance": "組合健保",
+      "address": "埼玉県さいたま市大宮区4-5-14",
+      "medicalHistory": "脂質異常症"
+    },
+    {
+      "id": "15",
+      "name": "木村拓也",
+      "nameKana": "キムラタクヤ",
+      "birthDate": "1981-07-07",
+      "gender": "男性",
+      "insurance": "国民健康保険",
+      "address": "千葉県千葉市中央区5-6-15",
+      "medicalHistory": "喘息"
+    },
+    {
+      "id": "16",
+      "name": "林優子",
+      "nameKana": "ハヤシユウコ",
+      "birthDate": "1977-01-16",
+      "gender": "女性",
+      "insurance": "共済組合",
+      "address": "東京都新宿区西新宿1-7-16",
+      "note": "前回、血圧高め"
+    },
+    {
+      "id": "17",
+      "name": "斎藤浩二",
+      "nameKana": "サイトウコウジ",
+      "birthDate": "1970-09-22",
+      "gender": "男性",
+      "insurance": "協会けんぽ",
+      "address": "東京都渋谷区神南2-8-17"
+    },
+    {
+      "id": "18",
+      "name": "清水愛",
+      "nameKana": "シミズアイ",
+      "birthDate": "1993-12-12",
+      "gender": "女性",
+      "insurance": "組合健保",
+      "address": "神奈川県横浜市西区3-9-18",
+      "medicalHistory": "高血圧"
+    },
+    {
+      "id": "19",
+      "name": "山口修",
+      "nameKana": "ヤマグチオサム",
+      "birthDate": "1962-06-15",
+      "gender": "男性",
+      "insurance": "国民健康保険",
+      "address": "埼玉県さいたま市大宮区4-1-19",
+      "note": "前回、血圧高め"
+    },
+    {
+      "id": "20",
+      "name": "森千尋",
+      "nameKana": "モリチヒロ",
+      "birthDate": "1989-04-28",
+      "gender": "女性",
+      "insurance": "共済組合",
+      "address": "千葉県千葉市中央区5-2-20",
+      "medicalHistory": "糖尿病"
+    }
+  ],
+  "reservations": [
+    {
+      "id": "1",
+      "patientId": "1",
+      "courseId": "dock",
+      "date": "2026-10-20",
+      "time": "09:00",
+      "options": [],
+      "status": "before"
+    },
+    {
+      "id": "2",
+      "patientId": "2",
+      "courseId": "regular",
+      "date": "2026-10-20",
+      "time": "10:00",
+      "options": [
+        {
+          "optionId": 4,
+          "optionName": "乳がん検診"
+        }
+      ],
+      "status": "inProgress"
+    },
+    {
+      "id": "3",
+      "patientId": "3",
+      "courseId": "lifestyle",
+      "date": "2026-10-21",
+      "time": "11:00",
+      "options": [
+        {
+          "optionId": 3,
+          "optionName": "腫瘍マーカー"
+        }
+      ],
+      "status": "complete"
+    },
+    {
+      "id": "4",
+      "patientId": "4",
+      "courseId": "dock",
+      "date": "2026-10-21",
+      "time": "12:00",
+      "options": [
+        {
+          "optionId": 1,
+          "optionName": "胃カメラ"
+        },
+        {
+          "optionId": 2,
+          "optionName": "腹部エコー"
+        }
+      ],
+      "status": "cancel"
+    },
+    {
+      "id": "5",
+      "patientId": "5",
+      "courseId": "regular",
+      "date": "2026-10-22",
+      "time": "14:00",
+      "options": [
+        {
+          "optionId": 2,
+          "optionName": "腹部エコー"
+        }
+      ],
+      "status": "before"
+    },
+    {
+      "id": "6",
+      "patientId": "6",
+      "courseId": "lifestyle",
+      "date": "2026-10-22",
+      "time": "15:00",
+      "options": [
+        {
+          "optionId": 5,
+          "optionName": "脳MRI"
+        }
+      ],
+      "status": "inProgress"
+    },
+    {
+      "id": "7",
+      "patientId": "7",
+      "courseId": "dock",
+      "date": "2026-10-23",
+      "time": "16:00",
+      "options": [],
+      "status": "complete"
+    },
+    {
+      "id": "8",
+      "patientId": "8",
+      "courseId": "regular",
+      "date": "2026-10-23",
+      "time": "17:00",
+      "options": [
+        {
+          "optionId": 1,
+          "optionName": "胃カメラ"
+        }
+      ],
+      "status": "cancel"
+    },
+    {
+      "id": "9",
+      "patientId": "9",
+      "courseId": "lifestyle",
+      "date": "2026-10-24",
+      "time": "18:00",
+      "options": [
+        {
+          "optionId": 3,
+          "optionName": "腫瘍マーカー"
+        }
+      ],
+      "status": "before"
+    },
+    {
+      "id": "10",
+      "patientId": "10",
+      "courseId": "dock",
+      "date": "2026-10-24",
+      "time": "09:00",
+      "options": [
+        {
+          "optionId": 1,
+          "optionName": "胃カメラ"
+        },
+        {
+          "optionId": 2,
+          "optionName": "腹部エコー"
+        }
+      ],
+      "status": "inProgress"
+    },
+    {
+      "id": "11",
+      "patientId": "11",
+      "courseId": "regular",
+      "date": "2026-10-25",
+      "time": "10:00",
+      "options": [
+        {
+          "optionId": 2,
+          "optionName": "腹部エコー"
+        }
+      ],
+      "status": "complete"
+    },
+    {
+      "id": "12",
+      "patientId": "12",
+      "courseId": "lifestyle",
+      "date": "2026-10-25",
+      "time": "11:00",
+      "options": [
+        {
+          "optionId": 4,
+          "optionName": "乳がん検診"
+        },
+        {
+          "optionId": 1,
+          "optionName": "胃カメラ"
+        }
+      ],
+      "status": "cancel"
+    },
+    {
+      "id": "13",
+      "patientId": "13",
+      "courseId": "dock",
+      "date": "2026-10-26",
+      "time": "12:00",
+      "options": [],
+      "status": "before"
+    },
+    {
+      "id": "14",
+      "patientId": "14",
+      "courseId": "regular",
+      "date": "2026-10-26",
+      "time": "14:00",
+      "options": [
+        {
+          "optionId": 1,
+          "optionName": "胃カメラ"
+        }
+      ],
+      "status": "inProgress"
+    },
+    {
+      "id": "15",
+      "patientId": "15",
+      "courseId": "lifestyle",
+      "date": "2026-10-27",
+      "time": "15:00",
+      "options": [
+        {
+          "optionId": 3,
+          "optionName": "腫瘍マーカー"
+        }
+      ],
+      "status": "complete"
+    },
+    {
+      "id": "16",
+      "patientId": "16",
+      "courseId": "dock",
+      "date": "2026-10-27",
+      "time": "16:00",
+      "options": [
+        {
+          "optionId": 1,
+          "optionName": "胃カメラ"
+        },
+        {
+          "optionId": 2,
+          "optionName": "腹部エコー"
+        }
+      ],
+      "status": "cancel"
+    },
+    {
+      "id": "17",
+      "patientId": "17",
+      "courseId": "regular",
+      "date": "2026-10-28",
+      "time": "17:00",
+      "options": [
+        {
+          "optionId": 2,
+          "optionName": "腹部エコー"
+        }
+      ],
+      "status": "before"
+    },
+    {
+      "id": "18",
+      "patientId": "18",
+      "courseId": "lifestyle",
+      "date": "2026-10-28",
+      "time": "18:00",
+      "options": [
+        {
+          "optionId": 5,
+          "optionName": "脳MRI"
+        }
+      ],
+      "status": "inProgress"
+    },
+    {
+      "id": "19",
+      "patientId": "19",
+      "courseId": "dock",
+      "date": "2026-10-29",
+      "time": "09:00",
+      "options": [],
+      "status": "complete"
+    },
+    {
+      "id": "20",
+      "patientId": "20",
+      "courseId": "regular",
+      "date": "2026-10-29",
+      "time": "10:00",
+      "options": [
+        {
+          "optionId": 1,
+          "optionName": "胃カメラ"
+        }
+      ],
+      "status": "cancel"
+    }
+  ]
+}

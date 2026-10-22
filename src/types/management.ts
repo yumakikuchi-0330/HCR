@@ -6,6 +6,12 @@ export type SelectionValue = {
   time: string | null;
 };
 
+// 検査オプション
+export type Option = {
+  optionId: number;
+  optionName: string;
+};
+
 // 患者データ
 export type Patient = {
   id: string;
@@ -26,7 +32,7 @@ export type Reservation = {
   courseId: CourseId;
   date: string;
   time: string;
-  options: string[];
+  optionIds: Option[];
   status: 'before' | 'inProgress' | 'complete' | 'cancel';
 };
 
