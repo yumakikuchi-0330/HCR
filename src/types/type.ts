@@ -15,6 +15,17 @@ export const COURSES = [
 export type Course = (typeof COURSES)[number];
 export type CourseId = Course['courseId'];
 
+// 検査オプション
+export const OPTIONS = [
+  { optionId: 1, optionName: '胃カメラ' },
+  { optionId: 2, optionName: '腹部エコー' },
+  { optionId: 3, optionName: '腫瘍マーカー' },
+  { optionId: 4, optionName: '乳がん検診' },
+  { optionId: 5, optionName: '脳MRI' },
+] as const;
+export type Option = (typeof OPTIONS)[number];
+export type OptionId = Option['optionId'];
+
 // 時間
 export type TimeSlot = {
   time: string;

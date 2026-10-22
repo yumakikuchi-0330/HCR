@@ -14,91 +14,6 @@
       "id": "3",
       "loginId": "user003",
       "password": "Pass0003"
-    },
-    {
-      "id": "4",
-      "loginId": "user004",
-      "password": "Pass0004"
-    },
-    {
-      "id": "5",
-      "loginId": "user005",
-      "password": "Pass0005"
-    },
-    {
-      "id": "6",
-      "loginId": "user006",
-      "password": "Pass0006"
-    },
-    {
-      "id": "7",
-      "loginId": "user007",
-      "password": "Pass0007"
-    },
-    {
-      "id": "8",
-      "loginId": "user008",
-      "password": "Pass0008"
-    },
-    {
-      "id": "9",
-      "loginId": "user009",
-      "password": "Pass0009"
-    },
-    {
-      "id": "10",
-      "loginId": "user010",
-      "password": "Pass0010"
-    },
-    {
-      "id": "11",
-      "loginId": "user011",
-      "password": "Pass0011"
-    },
-    {
-      "id": "12",
-      "loginId": "user012",
-      "password": "Pass0012"
-    },
-    {
-      "id": "13",
-      "loginId": "user013",
-      "password": "Pass0013"
-    },
-    {
-      "id": "14",
-      "loginId": "user014",
-      "password": "Pass0014"
-    },
-    {
-      "id": "15",
-      "loginId": "user015",
-      "password": "Pass0015"
-    },
-    {
-      "id": "16",
-      "loginId": "user016",
-      "password": "Pass0016"
-    },
-    {
-      "id": "17",
-      "loginId": "user017",
-      "password": "Pass0017"
-    },
-    {
-      "id": "18",
-      "loginId": "user018",
-      "password": "Pass0018"
-    },
-    {
-      "id": "19",
-      "loginId": "user019",
-      "password": "Pass0019"
-    },
-    {
-      "id": "20",
-      "loginId": "user020",
-      "password": "Pass0020"
     }
   ],
   "patients": [
@@ -307,7 +222,7 @@
       "courseId": "dock",
       "date": "2026-10-20",
       "time": "09:00",
-      "options": [],
+      "optionIds": [],
       "status": "before"
     },
     {
@@ -316,8 +231,8 @@
       "courseId": "regular",
       "date": "2026-10-20",
       "time": "10:00",
-      "options": [
-        "乳がん検診"
+      "optionIds": [
+        4
       ],
       "status": "inProgress"
     },
@@ -327,8 +242,8 @@
       "courseId": "lifestyle",
       "date": "2026-10-21",
       "time": "11:00",
-      "options": [
-        "腫瘍マーカー"
+      "optionIds": [
+        3
       ],
       "status": "complete"
     },
@@ -338,9 +253,9 @@
       "courseId": "dock",
       "date": "2026-10-21",
       "time": "12:00",
-      "options": [
-        "胃カメラ",
-        "腹部エコー"
+      "optionIds": [
+        1,
+        2
       ],
       "status": "cancel"
     },
@@ -350,8 +265,8 @@
       "courseId": "regular",
       "date": "2026-10-22",
       "time": "14:00",
-      "options": [
-        "腹部エコー"
+      "optionIds": [
+        2
       ],
       "status": "before"
     },
@@ -361,8 +276,8 @@
       "courseId": "lifestyle",
       "date": "2026-10-22",
       "time": "15:00",
-      "options": [
-        "脳MRI"
+      "optionIds": [
+        5
       ],
       "status": "inProgress"
     },
@@ -372,7 +287,7 @@
       "courseId": "dock",
       "date": "2026-10-23",
       "time": "16:00",
-      "options": [],
+      "optionIds": [],
       "status": "complete"
     },
     {
@@ -381,8 +296,8 @@
       "courseId": "regular",
       "date": "2026-10-23",
       "time": "17:00",
-      "options": [
-        "胃カメラ"
+      "optionIds": [
+        1
       ],
       "status": "cancel"
     },
@@ -392,8 +307,8 @@
       "courseId": "lifestyle",
       "date": "2026-10-24",
       "time": "18:00",
-      "options": [
-        "腫瘍マーカー"
+      "optionIds": [
+        3
       ],
       "status": "before"
     },
@@ -403,9 +318,9 @@
       "courseId": "dock",
       "date": "2026-10-24",
       "time": "09:00",
-      "options": [
-        "胃カメラ",
-        "腹部エコー"
+      "optionIds": [
+        1,
+        2
       ],
       "status": "inProgress"
     },
@@ -415,8 +330,8 @@
       "courseId": "regular",
       "date": "2026-10-25",
       "time": "10:00",
-      "options": [
-        "腹部エコー"
+      "optionIds": [
+        2
       ],
       "status": "complete"
     },
@@ -426,9 +341,9 @@
       "courseId": "lifestyle",
       "date": "2026-10-25",
       "time": "11:00",
-      "options": [
-        "乳がん検診",
-        "胃カメラ"
+      "optionIds": [
+        4,
+        1
       ],
       "status": "cancel"
     },
@@ -438,7 +353,7 @@
       "courseId": "dock",
       "date": "2026-10-26",
       "time": "12:00",
-      "options": [],
+      "optionIds": [],
       "status": "before"
     },
     {
@@ -447,8 +362,8 @@
       "courseId": "regular",
       "date": "2026-10-26",
       "time": "14:00",
-      "options": [
-        "胃カメラ"
+      "optionIds": [
+        1
       ],
       "status": "inProgress"
     },
@@ -458,8 +373,8 @@
       "courseId": "lifestyle",
       "date": "2026-10-27",
       "time": "15:00",
-      "options": [
-        "腫瘍マーカー"
+      "optionIds": [
+        3
       ],
       "status": "complete"
     },
@@ -469,9 +384,9 @@
       "courseId": "dock",
       "date": "2026-10-27",
       "time": "16:00",
-      "options": [
-        "胃カメラ",
-        "腹部エコー"
+      "optionIds": [
+        1,
+        2
       ],
       "status": "cancel"
     },
@@ -481,8 +396,8 @@
       "courseId": "regular",
       "date": "2026-10-28",
       "time": "17:00",
-      "options": [
-        "腹部エコー"
+      "optionIds": [
+        2
       ],
       "status": "before"
     },
@@ -492,8 +407,8 @@
       "courseId": "lifestyle",
       "date": "2026-10-28",
       "time": "18:00",
-      "options": [
-        "脳MRI"
+      "optionIds": [
+        5
       ],
       "status": "inProgress"
     },
@@ -503,7 +418,7 @@
       "courseId": "dock",
       "date": "2026-10-29",
       "time": "09:00",
-      "options": [],
+      "optionIds": [],
       "status": "complete"
     },
     {
@@ -512,8 +427,8 @@
       "courseId": "regular",
       "date": "2026-10-29",
       "time": "10:00",
-      "options": [
-        "胃カメラ"
+      "optionIds": [
+        1
       ],
       "status": "cancel"
     }
