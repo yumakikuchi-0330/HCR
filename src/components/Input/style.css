@@ -1,0 +1,22 @@
+.input{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.input-label{
+  font-size: 18px;
+  padding: 10px;
+}
+
+/* エラーなし */
+.input-field {
+  height: 30px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+/* エラー */
+.input-field--error {
+  border-color: red;
+}
