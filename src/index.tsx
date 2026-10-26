@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { ChakraProvider } from '@chakra-ui/react';
 import AppRoutes from './AppRoutes';
+import { system } from './system';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -8,7 +10,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <AppRoutes />
+    <ChakraProvider value={system}>
+      <AppRoutes />
+    </ChakraProvider>
   </React.StrictMode>
 );
 
