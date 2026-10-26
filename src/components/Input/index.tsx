@@ -30,16 +30,16 @@ export const Input = ({
       <div className="input">
         <label className="input-label" htmlFor={id}>{label}</label>
         <input
-        type={type}
-        id={id}
-        className={hasError ? 'input-field input-field--error' : 'input-field'}
-        name={name}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        ref={ref}
-        placeholder={placeholder}
-        aria-invalid={hasError}
+          type={type}
+          id={id}
+          className={hasError ? 'input-field input-field--error' : 'input-field'}
+          name={name}
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          ref={ref}
+          placeholder={placeholder}
+          aria-invalid={hasError}
         />
         {hasError && <p id={`${id}-error`} className="input-error">{errorMessage}</p>}
       </div>
