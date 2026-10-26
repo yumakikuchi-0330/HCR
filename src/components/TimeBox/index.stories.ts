@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { fn } from 'storybook/test';
-import  { Time } from '.';
+import  { TimeBox } from '.';
 import { TIME_SLOTS } from '../../types/type';
 
 const meta = {
   title: 'Components/Time',
-  component: Time,
+  component: TimeBox,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   parameters: {
@@ -17,7 +17,7 @@ const meta = {
     selectedTime: null,
     onSelect:fn(),
   },
-} satisfies Meta<typeof Time>;
+} satisfies Meta<typeof TimeBox>;
 
 export default meta;
 export type Story = StoryObj<typeof meta>;

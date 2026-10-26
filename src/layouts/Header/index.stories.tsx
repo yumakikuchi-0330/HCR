@@ -1,5 +1,7 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Header } from '.';
+import { MemoryRouter } from 'react-router-dom';
 
 const meta = {
   title: 'Layouts/Header',
@@ -10,6 +12,13 @@ const meta = {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
   },
+  decorators: [
+    (Story) => (
+      <MemoryRouter>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
   args: {
     title: 'HCR',
   },

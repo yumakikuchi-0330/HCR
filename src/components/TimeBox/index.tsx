@@ -8,7 +8,7 @@ type TimeProps = {
   onSelect: (time: string) => void;
 }
 
-export const Time = ({slots, selectedTime, onSelect}: TimeProps) =>{
+export const TimeBox = ({slots, selectedTime, onSelect}: TimeProps) =>{
   const displaySlots = slots.filter((slot) => slot.isAvailable);
   return(
     <div className="time-select">
@@ -35,4 +35,4 @@ export const Time = ({slots, selectedTime, onSelect}: TimeProps) =>{
   )
 };
 
-export default Time;
+export default TimeBox;
