@@ -1,23 +1,28 @@
 const apiUrl = process.env.REACT_APP_API_URL;
 
-const request = async (path: string, options?: RequestInit) => {
-  // http://localhost:3001/patients
-  const res = await fetch(`${apiUrl}${path}`, {
-    // POST,PUT通信
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(options),
-  });
+const commonUrl = (path: string) => `${apiUrl}${path}`;
+// URL の組み立て、失敗時の例外、res.json() まで
+const handleResponse = async (res: Response) => {
   if (!res.ok) {
     throw new Error(`API Error: ${res.status} ${res.statusText}`);
   }
   return res.json();
 };
-
-// データの取得
-export const get = (path: string) => request(path);
-// データの上書き保存
-export const post = (path: string, body: unknown) =>
-  request(path, { method: 'POST', body: JSON.stringify(body) });
+// GET通信でデータの取得
+export const get = async (path: string) => {
+  const res = await fetch(commonUrl(path));
+  return handleResponse(res);
+};
+// POST・PUTで共通の送信処理
+const send = async (method: 'POST' | 'PUT', path: string, body: unknown) => {
+  const res = await fetch(commonUrl(path), {
+    method,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  return handleResponse(res);
+};
+// データの新規作成
+export const post = (path: string, body: unknown) => send('POST', path, body);
 // データの書き換え
-export const put = (path: string, body: unknown) =>
-  request(path, { method: 'PUT', body: JSON.stringify(body) });
+export const put = (path: string, body: unknown) => send('PUT', path, body);
