@@ -1,6 +1,7 @@
+import type { ApiPath, RequestBody } from '../types/api';
 const apiUrl = process.env.REACT_APP_API_URL;
 
-const commonUrl = (path: string) => `${apiUrl}${path}`;
+const commonUrl = (path: ApiPath) => `${apiUrl}${path}`;
 // URL の組み立て、失敗時の例外、res.json() まで
 const handleResponse = async (res: Response) => {
   if (!res.ok) {
@@ -9,12 +10,12 @@ const handleResponse = async (res: Response) => {
   return res.json();
 };
 // GET通信でデータの取得
-export const get = async (path: string) => {
+export const get = async (path: ApiPath) => {
   const res = await fetch(commonUrl(path));
   return handleResponse(res);
 };
 // POST・PUTで共通の送信処理
-const send = async (method: 'POST' | 'PUT', path: string, body: unknown) => {
+const send = async (method: 'POST' | 'PUT', path: ApiPath, body: RequestBody) => {
   const res = await fetch(commonUrl(path), {
     method,
     headers: { 'Content-Type': 'application/json' },
@@ -23,6 +24,6 @@ const send = async (method: 'POST' | 'PUT', path: string, body: unknown) => {
   return handleResponse(res);
 };
 // データの新規作成
-export const post = (path: string, body: unknown) => send('POST', path, body);
+export const post = (path: ApiPath, body: RequestBody) => send('POST', path, body);
 // データの書き換え
-export const put = (path: string, body: unknown) => send('PUT', path, body);
+export const put = (path: ApiPath, body: RequestBody) => send('PUT', path, body);
