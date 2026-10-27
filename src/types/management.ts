@@ -32,7 +32,7 @@ export type Reservation = {
   courseId: CourseId;
   date: string;
   time: string;
-  optionIds: Option[];
+  options: Option[];
   status: 'before' | 'inProgress' | 'complete' | 'cancel';
 };
 
