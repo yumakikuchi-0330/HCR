@@ -14,6 +14,12 @@ const config: StorybookConfig = {
   "framework": "@storybook/react-webpack5",
   "staticDirs": [
     "../public"
-  ]
+  ],
+  // Storybookにも API の接続先を渡す（環境変数がなければローカルのjson-serverを使う）
+  env: (config) => ({
+    ...config,
+    REACT_APP_API_URL: process.env.REACT_APP_API_URL ?? 'http://localhost:3001',
+  }),
 };
 export default config;
+
