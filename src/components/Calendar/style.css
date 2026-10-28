@@ -1,0 +1,61 @@
+.calendar{
+  width: 280px;
+  font-size: 12px;
+}
+
+.calendar .fc .fc-toolbar.fc-header-toolbar{
+  margin-bottom: 20px;
+}
+
+.calendar .fc .fc-toolbar-title{
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.calendar .fc .btn{
+  padding: 2px 8px;
+  font-size: 12px;
+}
+
+/* 予約が埋まってる、選択できない */
+.calendar .is-unavailable{
+  background-color: #f5f7fb;
+  color: #d9d9d9;
+  cursor: not-allowed;
+}
+
+/* 日付選択中の状態 */
+.calendar .is-selected{
+  background-color: #3b82f6;
+}
+
+/* 選択中の数字 */
+.calendar .is-selected .fc-daygrid-day-number{
+  color: #2563eb;
+  font-weight: bold;
+}
+
+/* 曜日 */
+.calendar .fc .fc-col-header-cell-cushion{
+  padding: 8px 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #202f55;
+}
+
+.calendar .fc .fc-daygrid-day-frame{
+  min-height: auto;
+  padding:0;
+}
+
+.calendar .fc .fc-daygrid-day-number{
+  display: flex;
+  justify-content: center;
+  width: 30px;
+  height: 6px;
+  padding: 0;
+  border-radius: 6px;
+  color: #202f55;
+  text-decoration: none;
+  cursor: pointer;
+}
