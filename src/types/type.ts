@@ -22,6 +22,9 @@ export type TimeSlot = {
   reservedBy: string | null;
 };
 
+// 日付
+export const DATE_FORMAT = 'YYYY-MM-DD';
+
 // 予約時間枠（0:00〜23:00[13時は昼休み、9:00〜18:00が予約可能]）
 export const TIME_SLOTS: readonly TimeSlot[] = [
   { time: '00:00', isAvailable: false, reservedBy: null },

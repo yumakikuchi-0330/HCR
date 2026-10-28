@@ -1,31 +1,14 @@
-/* 全サイズ共通 */
-.button{
-  border: none;
-  border-radius: 6px;
-  background-color: #2563eb;
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
+.small{
+  width: 250px;
+  height: 80px;
 }
 
-.button:hover{
-  background-color: #3b82f6;
+.large{
+  width: 650px;
+  height: 120px;
 }
 
-.button--small{
-  width: 125px;
-  height: 55px;
-  font-size: 14px;
-}
-
-.button--medium{
-  width: 360px;
-  height: 65px;
-  font-size: 18px;
-}
-
-.button--large{
-  width: 460px;
-  height: 90px;
-  font-size: 24px;
+.medium{
+  width: 400px;
+  height: 80px;
 }
