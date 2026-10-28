@@ -12,17 +12,6 @@
   background-color: #3b82f6;
 }
 
-/* 白地に青文字（戻る・キャンセルなど） */
-.button--outline{
-  border: 1px solid #dbeafe;
-  background-color: #fff;
-  color: #3b82f6;
-}
-
-.button--outline:hover{
-  background-color: #dbeafe;
-}
-
 .button--small{
   width: 125px;
   height: 55px;

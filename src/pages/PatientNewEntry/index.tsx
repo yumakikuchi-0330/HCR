@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import {
   Box,
+  Button,
   Field,
   Flex,
   Heading,
@@ -191,7 +192,10 @@ const PatientNewEntry = () => {
             の項目は必ず入力してください
           </Text>
         </Box>
-        <AppButton variant="outline" text="登録キャンセル" onClick={() => navigate(HOME_PATH)} />
+        {/* 白地に青文字のボタン（共通のButtonには無い見た目のためChakraのButtonを使う） */}
+        <Button variant="outline" colorPalette="blue" onClick={() => navigate(HOME_PATH)}>
+          登録キャンセル
+        </Button>
       </Flex>
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -254,10 +258,11 @@ const PatientNewEntry = () => {
           </Text>
         )}
         <Flex justify="center">
+          {/* 共通のButtonはtype="button"のため、クリック時にフォームの送信処理を呼ぶ */}
           <AppButton
             size="large"
-            type="submit"
             text={isSubmitting ? '登録中…' : '日付を選択する'}
+            onClick={handleSubmit(onSubmit)}
           />
         </Flex>
       </form>
