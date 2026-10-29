@@ -78,5 +78,18 @@
   },
   "overrides": {
     "typescript": "$typescript"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^react-router/dom$": "<rootDir>/node_modules/react-router/dist/development/dom-export.js",
+      "^@ark-ui/react/(anatomy|factory)$": "<rootDir>/node_modules/@ark-ui/react/dist/components/$1.cjs",
+      "^@ark-ui/react/(environment|locale)$": "<rootDir>/node_modules/@ark-ui/react/dist/providers/$1/index.cjs",
+      "^@ark-ui/react/utils$": "<rootDir>/node_modules/@ark-ui/react/dist/utils/index.cjs",
+      "^@ark-ui/react/(.+)$": "<rootDir>/node_modules/@ark-ui/react/dist/components/$1/index.cjs"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!uqr/)",
+      "^.+\\.module\\.(css|sass|scss)$"
+    ]
   }
 }
