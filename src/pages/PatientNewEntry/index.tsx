@@ -17,7 +17,6 @@ import {
 } from '@chakra-ui/react';
 import TemplatePage from '../../layouts/TemplatePage';
 import AppButton from '../../components/Button';
-import PatientInfo from '../../components/PatientInfo';
 import { createPatient, fetchPatients } from '../../api/patients';
 import type { Patient } from '../../types/management';
 import type { PatientRequest } from '../../types/api';
@@ -147,9 +146,6 @@ const PatientNewEntry = () => {
           生年月日と氏名を入力すると、登録済みの患者情報が表示されます
         </Text>
       );
-    }
-    if (matchedPatient) {
-      return <PatientInfo patient={matchedPatient} />;
     }
     return (
       <SimpleGrid columns={2} gap="24px">
