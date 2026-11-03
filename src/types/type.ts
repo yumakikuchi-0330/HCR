@@ -1,3 +1,6 @@
+import type { PatientRequest } from './api';
+import type { Patient } from './management';
+
 // ログインフォームの入力値
 export type LoginFormValues = {
   loginId: string;
@@ -5,6 +8,11 @@ export type LoginFormValues = {
 };
 // 正しい値以外のときエラーになる
 export type LoginFormErrors = Partial<Record<keyof LoginFormValues, string>>;
+
+// 患者の登録・編集フォームの入力値（性別は未選択があるため空文字も許可）
+export type PatientFormValues = Omit<PatientRequest, 'gender'> & {
+  gender: Patient['gender'] | '';
+};
 
 // 健診コース
 export const COURSES = [

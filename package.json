@@ -17,6 +17,7 @@
     "@types/node": "^16.18.126",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "dayjs": "^1.11.23",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "react-hook-form": "^7.90.0",
@@ -58,6 +59,7 @@
     ]
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "@storybook/addon-a11y": "^10.6.2",
     "@storybook/addon-docs": "^10.6.2",
     "@storybook/addon-onboarding": "^10.6.2",
