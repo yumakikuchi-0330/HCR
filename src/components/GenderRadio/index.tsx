@@ -1,7 +1,5 @@
 import { Flex, RadioGroup } from '@chakra-ui/react';
-import type { Patient } from '../../types/management';
-
-const GENDERS: Patient['gender'][] = ['男性', '女性'];
+import { GENDERS } from '../../constants/patient';
 
 type GenderRadioProps = {
   value: string;

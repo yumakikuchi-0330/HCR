@@ -12,6 +12,8 @@ import { fetchPatient, updatePatient } from '../../api/patients';
 import type { LastVisit, Patient } from '../../types/management';
 import type { PatientFormValues } from '../../types/type';
 import dayjs from 'dayjs';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { patientSchema } from './schema';
 
 const VISIT_DATE_FORMAT = 'YYYY年MM月DD日';
 // 前回受診日の表示
@@ -66,7 +68,10 @@ const PatientEdit = () => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<PatientFormValues>({ defaultValues: DEFAULT_VALUES });
+  } = useForm<PatientFormValues>({
+    defaultValues: DEFAULT_VALUES,
+    resolver: yupResolver(patientSchema),
+  });
   useEffect(() => {
     const loadPatient = async () => {
       try {
@@ -118,17 +123,11 @@ const PatientEdit = () => {
           <SimpleGrid columns={3} gap="40px">
             <FormField label="生年月日" isRequired errorMessage={errors.birthDate?.message}>
               {/* 日付を選べる入力欄 */}
-              <Input
-                type="date"
-                {...register('birthDate', { required: '生年月日を入力してください' })}
-              />
+              <Input type="date" {...register('birthDate')} />
             </FormField>
             {/* 氏名 */}
             <FormField label="氏名" isRequired errorMessage={errors.name?.message}>
-              <Input
-                placeholder="山田太郎"
-                {...register('name', { required: '氏名を入力してください' })}
-              />
+              <Input placeholder="山田太郎" {...register('name')} />
             </FormField>
             {/* 性別 */}
             <FormField label="性別" isRequired errorMessage={errors.gender?.message}>
@@ -137,8 +136,6 @@ const PatientEdit = () => {
                 name="gender"
                 // useForm から取り出した control を渡して、フォームとつなぐ
                 control={control}
-                // 入力チェックのルール（未選択ならエラー）
-                rules={{ required: '性別を選択してください' }}
                 // render: 実際に表示する部品を返す
                 render={({ field }) => (
                   <GenderRadio value={field.value} onChange={field.onChange} />
