@@ -10,7 +10,6 @@ const AppRoutes = () => (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Home />} />
-      {/* HOMEの「新規予約」から遷移する */}
       <Route path="/reservations/new" element={<PatientNewEntry />} />
       {/* 編集画面の「保存する」「編集キャンセル」から戻ってくる */}
       <Route path="/patients/:id" element={<PatientDetail />} />

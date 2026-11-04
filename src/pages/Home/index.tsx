@@ -3,15 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
-  DatePicker,
   Flex,
   Heading,
   HStack,
   SimpleGrid,
   Spinner,
   Table,
-  Text,
-  parseDate,
+  Text
 } from '@chakra-ui/react';
 import TemplatePage from '../../layouts/TemplatePage';
 import StatusBadge from '../../components/StatusBadge';
@@ -19,10 +17,12 @@ import StatusBadge from '../../components/StatusBadge';
 import AppButton from '../../components/Button';
 import { fetchReservationsDate } from '../../api/reservations';
 import { fetchPatients } from '../../api/patients';
-import { COURSES } from '../../types/type';
-import type { CourseId } from '../../types/type';
+import { COURSES , DATE_FORMAT , CourseId} from '../../types/type';
 import type { Patient, Reservation } from '../../types/management';
-import { formatLongDate, formatShortDate, getToday } from '../../utils/date';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ja';
+import Calendar from '../../components/Calendar';
+
 
 type Status = Reservation['status'];
 // ステータスの表示名
@@ -37,6 +37,8 @@ const STATUS_LIST = Object.keys(STATUS_LABELS) as Status[];
 const PAGE_SIZE = 5; // 1ページに出す件数
 const FIRST_PAGE = 1;
 const NO_OPTION = '—';
+const LONG_DATE_FORMAT = 'YYYY年MM月DD日(ddd)'; // カレンダー横の表示用
+const SHORT_DATE_FORMAT = 'M/D (ddd)'; // 一覧用
 // コースIDからコースを探す。見つからない場合は空文字
 const getCourseName = (courseId: CourseId) =>
   COURSES.find((course) => course.courseId === courseId)?.courseName ?? '';
@@ -52,7 +54,7 @@ const Home = () => {
   // 画面を移動する関数
   const navigate = useNavigate();
   // 日付のstate
-  const [selectedDate, setSelectedDate] = useState(getToday());
+  const [selectedDate, setSelectedDate] = useState(dayjs().format(DATE_FORMAT));
   // 予約の一覧のstate
   const [reservations, setReservations] = useState<Reservation[]>([]);
   // 患者の一覧のstate
@@ -132,7 +134,7 @@ const Home = () => {
               return (
                 <Table.Row key={reservation.id}>
                   {/* 予約日と時間 */}
-                  <Table.Cell fontWeight="bold">{formatShortDate(reservation.date)}</Table.Cell>
+                  <Table.Cell fontWeight="bold">{dayjs(reservation.date).locale('ja').format(SHORT_DATE_FORMAT)}</Table.Cell>
                   <Table.Cell fontWeight="bold">{reservation.time}</Table.Cell>
                   {/* 患者名とその下にふりがな */}
                   <Table.Cell>
@@ -214,33 +216,12 @@ const Home = () => {
         {/* カレンダーと選択中の日付を横並び */}
         <HStack gap="20px">
           {/* カレンダー */}
-          <DatePicker.Root
-            inline
-            locale="ja-JP"
-            value={[parseDate(selectedDate)]}
-            onValueChange={(details) => {
-              const date = details.value[0];
-              if (date) {
-                setSelectedDate(date.toString());
-              }
-            }}
-          >
-            <DatePicker.View view="day">
-              <DatePicker.Header />
-              <DatePicker.DayTable />
-            </DatePicker.View>
-            <DatePicker.View view="month">
-              <DatePicker.Header />
-              <DatePicker.MonthTable />
-            </DatePicker.View>
-            <DatePicker.View view="year">
-              <DatePicker.Header />
-              <DatePicker.YearTable />
-            </DatePicker.View>
-          </DatePicker.Root>
+          <Box w="300px" flexShrink={0} bg="#fff" p="8px">
+            <Calendar selectedDate={selectedDate} onSelect={setSelectedDate} />
+          </Box>
           {/* 日付は折り返さず1行で表示 */}
           <Text fontSize="text" whiteSpace="nowrap" flexShrink={0}>
-            {formatLongDate(selectedDate)}
+            {dayjs(selectedDate).locale('ja').format(LONG_DATE_FORMAT)}
           </Text>
         </HStack>
         {/* 新規予約ボタン */}
