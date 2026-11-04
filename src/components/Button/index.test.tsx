@@ -1,9 +1,5 @@
-// React本体を読み込む（JSX＝<Button /> のような書き方を使うために必要）
 import React from 'react';
-// render: コンポーネントをテスト用の仮想画面に描画する関数
-// screen: 描画された画面から要素を探すための道具
 import { render, screen } from '@testing-library/react';
-// テスト対象のButtonコンポーネントを読み込む（同じフォルダの index.tsx）
 import { Button } from './index';
 
 // describe: 関連するテストをひとまとめにするグループ（ここでは「Button」についてのテスト）
