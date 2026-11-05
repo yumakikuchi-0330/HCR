@@ -1,3 +1,6 @@
+// Node.js の型（process など）を読み込む
+// このファイルは tsconfig.json の include（src）の外にあるため、明示しないと VS Code で process がエラーになる
+/// <reference types="node" />
 import { defineConfig, devices } from '@playwright/test';
 
 /**
@@ -38,7 +41,6 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',

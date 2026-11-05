@@ -23,7 +23,14 @@ export type Patient = {
   address?: string;
   medicalHistory?: string;// 既往歴
   note?: string;       // 連絡事項
+  lastVisit?: LastVisit; // 前回受診（BEで管理）
 };
+
+// 前回受診（受診済み・キャンセル・予約中・初診）
+export type LastVisit =
+  | { status: 'complete' | 'cancel'; date: string }
+  | { status: 'reserved' }
+  | { status: 'firstVisit' };
 
 // 患者情報入力
 export type Reservation = {
