@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import type { AvailableDate } from '../../types/management';
 import './style.css';
 import { DATE_FORMAT } from '../../types/type';
-import { isHoliday } from '../../types/holiday';
+import { isHoliday } from '../../utils/holiday';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
