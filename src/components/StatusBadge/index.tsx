@@ -1,9 +1,10 @@
 import React from "react"
 import './style.css';
+import type { Reservation } from '../../types/management';
 
 type Props = {
   label: string;
-  situation: 'before' | 'inProgress' | 'complete' | 'cancel';
+  situation: Reservation['status'];
 };
 
 export const StatusBadge = ({label, situation}: Props) =>{

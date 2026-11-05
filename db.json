@@ -25,7 +25,11 @@
       "gender": "男性",
       "insurance": "協会けんぽ",
       "address": "東京都新宿区西新宿1-1-1",
-      "note": "前回、血圧高め"
+      "note": "前回、血圧高め",
+      "lastVisit": {
+        "status": "complete",
+        "date": "2025-04-15"
+      }
     },
     {
       "id": "2",
@@ -35,7 +39,11 @@
       "gender": "女性",
       "insurance": "組合健保",
       "address": "東京都渋谷区神南2-2-2",
-      "medicalHistory": "高血圧"
+      "medicalHistory": "高血圧",
+      "lastVisit": {
+        "status": "complete",
+        "date": "2025-07-10"
+      }
     },
     {
       "id": "3",
@@ -44,7 +52,11 @@
       "birthDate": "1972-01-30",
       "gender": "男性",
       "insurance": "国民健康保険",
-      "address": "神奈川県横浜市西区3-3-3"
+      "address": "神奈川県横浜市西区3-3-3",
+      "lastVisit": {
+        "status": "complete",
+        "date": "2026-10-21"
+      }
     },
     {
       "id": "4",
@@ -55,7 +67,11 @@
       "insurance": "共済組合",
       "address": "埼玉県さいたま市大宮区4-4-4",
       "medicalHistory": "糖尿病",
-      "note": "前回、血圧高め"
+      "note": "前回、血圧高め",
+      "lastVisit": {
+        "status": "complete",
+        "date": "2025-11-05"
+      }
     },
     {
       "id": "5",
@@ -64,7 +80,11 @@
       "birthDate": "1988-03-18",
       "gender": "男性",
       "insurance": "協会けんぽ",
-      "address": "千葉県千葉市中央区5-5-5"
+      "address": "千葉県千葉市中央区5-5-5",
+      "lastVisit": {
+        "status": "complete",
+        "date": "2025-06-20"
+      }
     },
     {
       "id": "6",
@@ -74,7 +94,11 @@
       "gender": "女性",
       "insurance": "組合健保",
       "address": "東京都新宿区西新宿1-6-6",
-      "medicalHistory": "脂質異常症"
+      "medicalHistory": "脂質異常症",
+      "lastVisit": {
+        "status": "complete",
+        "date": "2025-09-12"
+      }
     },
     {
       "id": "7",
@@ -85,7 +109,11 @@
       "insurance": "国民健康保険",
       "address": "東京都渋谷区神南2-7-7",
       "medicalHistory": "喘息",
-      "note": "前回、血圧高め"
+      "note": "前回、血圧高め",
+      "lastVisit": {
+        "status": "complete",
+        "date": "2026-10-23"
+      }
     },
     {
       "id": "8",
@@ -94,7 +122,11 @@
       "birthDate": "1995-02-14",
       "gender": "女性",
       "insurance": "共済組合",
-      "address": "神奈川県横浜市西区3-8-8"
+      "address": "神奈川県横浜市西区3-8-8",
+      "lastVisit": {
+        "status": "cancel",
+        "date": "2026-10-23"
+      }
     },
     {
       "id": "9",
@@ -103,7 +135,10 @@
       "birthDate": "1968-12-01",
       "gender": "男性",
       "insurance": "協会けんぽ",
-      "address": "埼玉県さいたま市大宮区4-9-9"
+      "address": "埼玉県さいたま市大宮区4-9-9",
+      "lastVisit": {
+        "status": "reserved"
+      }
     },
     {
       "id": "10",
@@ -114,7 +149,10 @@
       "insurance": "組合健保",
       "address": "千葉県千葉市中央区5-1-10",
       "medicalHistory": "高血圧",
-      "note": "前回、血圧高め"
+      "note": "前回、血圧高め",
+      "lastVisit": {
+        "status": "reserved"
+      }
     },
     {
       "id": "11",
@@ -123,7 +161,11 @@
       "birthDate": "1992-08-08",
       "gender": "男性",
       "insurance": "国民健康保険",
-      "address": "東京都新宿区西新宿1-2-11"
+      "address": "東京都新宿区西新宿1-2-11",
+      "lastVisit": {
+        "status": "complete",
+        "date": "2026-10-25"
+      }
     },
     {
       "id": "12",
@@ -133,7 +175,11 @@
       "gender": "女性",
       "insurance": "共済組合",
       "address": "東京都渋谷区神南2-3-12",
-      "medicalHistory": "糖尿病"
+      "medicalHistory": "糖尿病",
+      "lastVisit": {
+        "status": "cancel",
+        "date": "2026-10-25"
+      }
     },
     {
       "id": "13",
@@ -143,7 +189,10 @@
       "gender": "男性",
       "insurance": "協会けんぽ",
       "address": "神奈川県横浜市西区3-4-13",
-      "note": "前回、血圧高め"
+      "note": "前回、血圧高め",
+      "lastVisit": {
+        "status": "reserved"
+      }
     },
     {
       "id": "14",
@@ -153,7 +202,10 @@
       "gender": "女性",
       "insurance": "組合健保",
       "address": "埼玉県さいたま市大宮区4-5-14",
-      "medicalHistory": "脂質異常症"
+      "medicalHistory": "脂質異常症",
+      "lastVisit": {
+        "status": "reserved"
+      }
     },
     {
       "id": "15",
@@ -163,7 +215,11 @@
       "gender": "男性",
       "insurance": "国民健康保険",
       "address": "千葉県千葉市中央区5-6-15",
-      "medicalHistory": "喘息"
+      "medicalHistory": "喘息",
+      "lastVisit": {
+        "status": "complete",
+        "date": "2026-10-27"
+      }
     },
     {
       "id": "16",
@@ -173,7 +229,11 @@
       "gender": "女性",
       "insurance": "共済組合",
       "address": "東京都新宿区西新宿1-7-16",
-      "note": "前回、血圧高め"
+      "note": "前回、血圧高め",
+      "lastVisit": {
+        "status": "cancel",
+        "date": "2026-10-27"
+      }
     },
     {
       "id": "17",
@@ -182,7 +242,10 @@
       "birthDate": "1970-09-22",
       "gender": "男性",
       "insurance": "協会けんぽ",
-      "address": "東京都渋谷区神南2-8-17"
+      "address": "東京都渋谷区神南2-8-17",
+      "lastVisit": {
+        "status": "reserved"
+      }
     },
     {
       "id": "18",
@@ -192,7 +255,10 @@
       "gender": "女性",
       "insurance": "組合健保",
       "address": "神奈川県横浜市西区3-9-18",
-      "medicalHistory": "高血圧"
+      "medicalHistory": "高血圧",
+      "lastVisit": {
+        "status": "reserved"
+      }
     },
     {
       "id": "19",
@@ -202,7 +268,11 @@
       "gender": "男性",
       "insurance": "国民健康保険",
       "address": "埼玉県さいたま市大宮区4-1-19",
-      "note": "前回、血圧高め"
+      "note": "前回、血圧高め",
+      "lastVisit": {
+        "status": "complete",
+        "date": "2026-10-29"
+      }
     },
     {
       "id": "20",
@@ -212,7 +282,49 @@
       "gender": "女性",
       "insurance": "共済組合",
       "address": "千葉県千葉市中央区5-2-20",
-      "medicalHistory": "糖尿病"
+      "medicalHistory": "糖尿病",
+      "lastVisit": {
+        "status": "cancel",
+        "date": "2026-10-29"
+      }
+    },
+    {
+      "id": "21",
+      "name": "岡田悠真",
+      "nameKana": "オカダユウマ",
+      "birthDate": "1996-02-03",
+      "gender": "男性",
+      "insurance": "協会けんぽ",
+      "address": "東京都新宿区西新宿1-3-21",
+      "lastVisit": {
+        "status": "firstVisit"
+      }
+    },
+    {
+      "id": "22",
+      "name": "前田結衣",
+      "nameKana": "マエダユイ",
+      "birthDate": "2000-06-19",
+      "gender": "女性",
+      "insurance": "組合健保",
+      "address": "神奈川県横浜市西区3-5-22",
+      "medicalHistory": "喘息",
+      "lastVisit": {
+        "status": "firstVisit"
+      }
+    },
+    {
+      "id": "23",
+      "name": "藤田和夫",
+      "nameKana": "フジタカズオ",
+      "birthDate": "1958-11-27",
+      "gender": "男性",
+      "insurance": "国民健康保険",
+      "address": "埼玉県さいたま市大宮区4-2-23",
+      "note": "初回のため問診票を事前送付",
+      "lastVisit": {
+        "status": "firstVisit"
+      }
     }
   ],
   "reservations": [
@@ -491,6 +603,107 @@
         }
       ],
       "status": "cancel"
+    },
+    {
+      "id": "21",
+      "patientId": "1",
+      "courseId": "dock",
+      "date": "2024-04-16",
+      "time": "09:00",
+      "options": [
+        {
+          "optionId": 1,
+          "optionName": "胃カメラ"
+        }
+      ],
+      "status": "complete"
+    },
+    {
+      "id": "22",
+      "patientId": "1",
+      "courseId": "dock",
+      "date": "2025-04-15",
+      "time": "09:00",
+      "options": [
+        {
+          "optionId": 1,
+          "optionName": "胃カメラ"
+        },
+        {
+          "optionId": 2,
+          "optionName": "腹部エコー"
+        }
+      ],
+      "status": "complete"
+    },
+    {
+      "id": "23",
+      "patientId": "2",
+      "courseId": "regular",
+      "date": "2025-07-10",
+      "time": "10:00",
+      "options": [
+        {
+          "optionId": 4,
+          "optionName": "乳がん検診"
+        }
+      ],
+      "status": "complete"
+    },
+    {
+      "id": "24",
+      "patientId": "3",
+      "courseId": "lifestyle",
+      "date": "2025-10-21",
+      "time": "11:00",
+      "options": [
+        {
+          "optionId": 3,
+          "optionName": "腫瘍マーカー"
+        }
+      ],
+      "status": "complete"
+    },
+    {
+      "id": "25",
+      "patientId": "4",
+      "courseId": "dock",
+      "date": "2025-11-05",
+      "time": "12:00",
+      "options": [],
+      "status": "complete"
+    },
+    {
+      "id": "26",
+      "patientId": "5",
+      "courseId": "regular",
+      "date": "2025-06-20",
+      "time": "14:00",
+      "options": [],
+      "status": "complete"
+    },
+    {
+      "id": "27",
+      "patientId": "6",
+      "courseId": "lifestyle",
+      "date": "2024-09-13",
+      "time": "15:00",
+      "options": [],
+      "status": "complete"
+    },
+    {
+      "id": "28",
+      "patientId": "6",
+      "courseId": "lifestyle",
+      "date": "2025-09-12",
+      "time": "15:00",
+      "options": [
+        {
+          "optionId": 5,
+          "optionName": "脳MRI"
+        }
+      ],
+      "status": "complete"
     }
   ]
 }
