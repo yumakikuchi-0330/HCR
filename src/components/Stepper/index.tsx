@@ -2,7 +2,7 @@ import React from "react";
 import './style.css';
 
 type StepperProps = {
-  steps: string[];
+  steps:readonly string[];
   currentStep: number;
 };
 

@@ -1,0 +1,60 @@
+.reserve-date .calendar{
+  width: 100%;
+  font-size: 14px;
+}
+
+.reserve-date .calendar .fc .fc-toolbar.fc-header-toolbar{
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.reserve-date .calendar .fc .fc-toolbar-title{
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.reserve-date .calendar .fc .fc-daygrid-day-frame{
+  min-height: 100px;
+}
+
+.reserve-date .calendar .fc .fc-daygrid-day-top{
+  flex-direction: row;
+}
+.reserve-date .calendar .fc .fc-daygrid-day-number{
+  justify-content: flex-start;
+  width: auto;
+  height: auto;
+  padding: 8px;
+}
+
+/* 今日のマスの黄色を透明にする */
+.reserve-date .calendar .fc .fc-day-today:not(.is-selected):not(.is-unavailable){
+  background-color: transparent;
+}
+
+/* 「<」「>」のボタン */
+.reserve-date .calendar .fc .btn-primary{
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  color: #000;
+  font-size: 20px;
+}
+
+.reserve-date .calendar .fc .fc-day-sat .fc-col-header-cell-cushion,
+.reserve-date .calendar .fc .fc-day-sun .fc-col-header-cell-cushion{
+  color: #c62828;
+}
+
+.reserve-date .calendar .fc .is-unavailable .fc-daygrid-day-number{
+  color: #b0b0b0;
+}
+
+.reserve-date .calendar .fc .fc-day-sat .fc-daygrid-day-number,
+.reserve-date .calendar .fc .fc-day-sun .fc-daygrid-day-number,
+.reserve-date .calendar .fc .is-holiday .fc-daygrid-day-number{
+  color: #c62828;
+}
+
+.reserve-date .calendar .fc .is-selected .fc-daygrid-day-number{
+  color: #000;
+}

@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 import type { AvailableDate } from '../../types/management';
 import './style.css';
 import { DATE_FORMAT } from '../../types/type';
+import { isHoliday } from '../../types/holiday';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -34,12 +35,13 @@ const Calendar= ({ events, selectedDate, onSelect }: Props) => {
     }
     return availableDates.has(dateStr) && !dayjs(dateStr).isBefore(dayjs(), 'day');
   };
-  // 各日付セルに付けるclassName（選択できない日・選択中の日）
+  // 各日付セルに付けるclassName（選択できない日・選択中の日・祝日）
   const getDayCellClassNames = (arg: DayCellContentArg) => {
     const dateStr = dayjs(arg.date).format(DATE_FORMAT);
     const classNames: string[] = [];
     if (!isSelectable(dateStr)) classNames.push('is-unavailable');
     if (dateStr === selectedDate) classNames.push('is-selected');
+    if (isHoliday(dateStr)) classNames.push('is-holiday');
     return classNames;
   };
   // 日付がクリックされたときの処理（選択できない日は何もしない）
@@ -62,6 +64,10 @@ const Calendar= ({ events, selectedDate, onSelect }: Props) => {
         initialDate={selectedDate ?? undefined}
         height="auto"
         locale="ja"
+        // 週の始まりを月曜日にする（0: 日曜、1: 月曜）
+        firstDay={1}
+        // 日付の表示から「日」を外す（locale="ja" だと「5日」になるので「5」にする）
+        dayCellContent={(arg) => arg.dayNumberText.replace('日', '')}
         dateClick={handleDateClick}
         dayCellClassNames={getDayCellClassNames}
       />

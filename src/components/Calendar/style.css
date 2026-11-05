@@ -59,3 +59,8 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+/* 祝日の数字（上の数字の色を上書きするため、このルールより後ろに書く） */
+.calendar .is-holiday .fc-daygrid-day-number{
+  color: #c62828;
+}
