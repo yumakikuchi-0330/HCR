@@ -12,7 +12,6 @@ import PatientInfo from '../../components/PatientInfo';
 import { createPatient, fetchPatients } from '../../api/patients';
 import type { Patient } from '../../types/management';
 import type { PatientFormValues } from '../../types/type';
-import { importMetaResolve } from 'storybook/internal/common';
 
 const DEFAULT_VALUES: PatientFormValues = {
   name: '',
