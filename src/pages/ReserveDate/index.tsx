@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Button, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
 import dayjs from 'dayjs';
+import { ROUTES } from '../../constants/routes';
 import TemplatePage from '../../layouts/TemplatePage';
 import AppButton from '../../components/Button';
 import Calendar from '../../components/Calendar';
@@ -14,13 +15,6 @@ import type { AvailableDate, Patient } from '../../types/management';
 import { COURSES, CourseId } from '../../types/type';
 import './style.css';
 
-// 前の画面（患者新規登録）に戻るURL
-const PATIENT_ENTRY_PATH = '/reservations/new';
-// 次の画面（時間選択）のURL（未実装）
-const TIME_SELECT_PATH = '/reservations/new/time';
-// エラーの文字色
-const ERROR_COLOR = '#c62828';
-
 // 前の画面から受け取るデータの型
 type LocationState = { patientId?: string } | null;
 
@@ -32,15 +26,16 @@ const ReserveDate = () => {
   const [availableDates, setAvailableDates] = useState<AvailableDate[]>([]);
   const [courseId, setCourseId] = useState<CourseId | null>(null);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(!!patientId);
-  const [loadErrorMessage, setLoadErrorMessage] = useState<string | null>(
-    patientId ? null : '予約者の情報がありません。患者登録からやり直してください',
-  );
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadErrorMessage, setLoadErrorMessage] = useState<string | null>(null);
   // 「時間を選択する」を押したときの入力エラー
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   useEffect(() => {
-    // 患者IDがない（URLを直接開いた）ときは何もしない
-    if (!patientId) return;
+    if (!patientId) {
+      setLoadErrorMessage('予約者の情報がありません。患者登録からやり直してください');
+      setIsLoading(false);
+      return;
+    }
     const loadData = async () => {
       try {
         // 患者と予約一覧を同時に取得して、両方終わるまで待つ
@@ -64,7 +59,7 @@ const ReserveDate = () => {
       return;
     }
     // 次の画面に、患者ID・コース・日付をまとめて渡す
-    navigate(TIME_SELECT_PATH, { state: { patientId, courseId, date: selectedDate } });
+    navigate(ROUTES.RESERVATION_TIME, { state: { patientId, courseId, date: selectedDate } });
   };
   const handleSelectDate = (date: string) => {
     setSelectedDate(date);
@@ -83,7 +78,7 @@ const ReserveDate = () => {
     // 取得に失敗した（または患者IDがない）ときは、カレンダーを出さない
     if (loadErrorMessage || !patient) {
       return (
-        <Text fontSize="body" color={ERROR_COLOR}>
+        <Text fontSize="body" color='#c62828'>
           {loadErrorMessage}
         </Text>
       );
@@ -150,7 +145,7 @@ const ReserveDate = () => {
           />
         </Box>
         {errorMessage && (
-          <Text fontSize="body" color={ERROR_COLOR} textAlign="center" mb="16px">
+          <Text fontSize="body" color='#c62828' textAlign="center" mb="16px">
             {errorMessage}
           </Text>
         )}
@@ -164,7 +159,7 @@ const ReserveDate = () => {
         <AppButton
           variant="outline"
           text="戻る"
-          onClick={() => navigate(PATIENT_ENTRY_PATH)}
+          onClick={() => navigate(ROUTES.RESERVATION_NEW)}
         />
         {patient && (
           <AppButton size="large" text="時間を選択する" onClick={goToTimeSelect} />
