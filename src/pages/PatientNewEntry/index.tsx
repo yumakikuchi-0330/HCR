@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { Box, Flex, Heading, Input, SimpleGrid, Spinner, Text } from '@chakra-ui/react';
+import { ROUTES } from '../../constants/routes';
 import TemplatePage from '../../layouts/TemplatePage';
 import AppButton from '../../components/Button';
 import FormField from '../../components/FormField';
@@ -22,9 +23,6 @@ const DEFAULT_VALUES: PatientFormValues = {
   medicalHistory: '',
   note: '',
 };
-const HOME_PATH = '/';
-// 日付選択画面（未実装）
-const DATE_SELECT_PATH = '/reservations/new/date';
 
 // 氏名の空白（全角・半角）を除いて比較できる形にする
 const normalizeName = (name: string) => name.replace(/\s/g, '');
@@ -70,7 +68,7 @@ const PatientNewEntry = () => {
       )
     : undefined;
   const goToDateSelect = (patientId: string) => {
-    navigate(DATE_SELECT_PATH, { state: { patientId } });
+    navigate(ROUTES.RESERVATION_DATE, { state: { patientId } });
   };
   // 登録済みならそのまま日付選択へ、未登録なら患者を登録してから日付選択へ
   const onSubmit = async (values: PatientFormValues) => {
@@ -121,7 +119,7 @@ const PatientNewEntry = () => {
             の項目は必ず入力してください
           </Text>
         </Box>
-        <AppButton variant="outline" text="登録キャンセル" onClick={() => navigate(HOME_PATH)} />
+        <AppButton variant="outline" text="登録キャンセル" onClick={() => navigate(ROUTES.HOME)} />
       </Flex>
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* 基本情報（生年月日・氏名・性別） */}
