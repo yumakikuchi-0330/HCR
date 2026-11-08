@@ -9,7 +9,7 @@ import {
   SimpleGrid,
   Spinner,
   Table,
-  Text
+  Text,
 } from '@chakra-ui/react';
 import TemplatePage from '../../layouts/TemplatePage';
 import StatusBadge from '../../components/StatusBadge';
@@ -17,12 +17,11 @@ import StatusBadge from '../../components/StatusBadge';
 import AppButton from '../../components/Button';
 import { fetchReservationsDate } from '../../api/reservations';
 import { fetchPatients } from '../../api/patients';
-import { COURSES , DATE_FORMAT , CourseId} from '../../types/type';
+import { COURSES, DATE_FORMAT, CourseId } from '../../types/type';
 import type { Patient, Reservation } from '../../types/management';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ja';
 import Calendar from '../../components/Calendar';
-
 
 type Status = Reservation['status'];
 // ステータスの表示名
@@ -104,11 +103,19 @@ const Home = () => {
     }
     // エラーは赤い文字で表示
     if (error) {
-      return <Text fontSize="body" color="red">{error}</Text>;
+      return (
+        <Text fontSize="body" color="red">
+          {error}
+        </Text>
+      );
     }
     // 予約が0件の場合、text出現
     if (reservations.length === 0) {
-      return <Text fontSize="body" color="gray.500">この日の予約はありません</Text>;
+      return (
+        <Text fontSize="body" color="gray.500">
+          この日の予約はありません
+        </Text>
+      );
     }
     return (
       // 入れ物。表とページボタンを囲む
@@ -134,7 +141,9 @@ const Home = () => {
               return (
                 <Table.Row key={reservation.id}>
                   {/* 予約日と時間 */}
-                  <Table.Cell fontWeight="bold">{dayjs(reservation.date).locale('ja').format(SHORT_DATE_FORMAT)}</Table.Cell>
+                  <Table.Cell fontWeight="bold">
+                    {dayjs(reservation.date).locale('ja').format(SHORT_DATE_FORMAT)}
+                  </Table.Cell>
                   <Table.Cell fontWeight="bold">{reservation.time}</Table.Cell>
                   {/* 患者名とその下にふりがな */}
                   <Table.Cell>
@@ -208,24 +217,19 @@ const Home = () => {
   return (
     // ヘッダーサイドバー付きのテンプレートで囲む
     <TemplatePage>
-      <Heading as="h2" fontSize="h2" fontWeight="bold" mb="16px" color="#202f55">
-        予約一覧
-      </Heading>
-      {/* カレンダー・日付と新規予約ボタンの行 */}
-      <Flex justify="space-between" align="center" mb="24px">
-        {/* カレンダーと選択中の日付を横並び */}
-        <HStack gap="20px">
-          {/* カレンダー */}
-          <Box w="300px" flexShrink={0} bg="#fff" p="8px">
-            <Calendar selectedDate={selectedDate} onSelect={setSelectedDate} />
-          </Box>
-          {/* 日付は折り返さず1行で表示 */}
-          <Text fontSize="text" whiteSpace="nowrap" flexShrink={0}>
-            {dayjs(selectedDate).locale('ja').format(LONG_DATE_FORMAT)}
-          </Text>
-        </HStack>
-        {/* 新規予約ボタン */}
-        <AppButton size="medium" text="新規予約" onClick={() => navigate('/reservations/new')} />
+      <HStack gap="16px" mb="16px" align="baseline">
+        <Heading as="h2" fontSize="h2" fontWeight="bold" color="#202f55">
+          予約一覧
+        </Heading>
+        <Text fontSize="text" whiteSpace="nowrap">
+          選択中：{dayjs(selectedDate).locale('ja').format(LONG_DATE_FORMAT)}
+        </Text>
+      </HStack>
+      <Flex justify="space-between" align="center" mb="24px" pr="80px">
+        <Box w="300px" flexShrink={0} bg="#fff" p="8px">
+          <Calendar selectedDate={selectedDate} onSelect={setSelectedDate} />
+        </Box>
+        <AppButton size="small" text="新規予約" onClick={() => navigate('/reservations/new')} />
       </Flex>
       <SimpleGrid columns={STATUS_LIST.length} gap="16px" mb="24px">
         {STATUS_LIST.map((status) => (
