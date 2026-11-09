@@ -5,6 +5,7 @@ import PatientNewEntry from './pages/PatientNewEntry';
 import ReserveDate from './pages/ReserveDate';
 import PatientDetail from './pages/PatientDetail';
 import PatientEdit from './pages/PatientEdit';
+import ReserveTime from './pages/ReserveTime';
 
 const AppRoutes = () => (
   <BrowserRouter>
@@ -17,6 +18,8 @@ const AppRoutes = () => (
       {/* 編集画面の「保存する」「編集キャンセル」から戻ってくる */}
       <Route path="/patients/:id" element={<PatientDetail />} />
       <Route path="/patients/:id/edit" element={<PatientEdit />} />
+      {/* 予約日登録の「時間を選択する」から遷移する */}
+      <Route path="/reservations/new/time" element={<ReserveTime />} />
     </Routes>
   </BrowserRouter>
 );

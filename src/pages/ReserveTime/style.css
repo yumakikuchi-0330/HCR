@@ -1,0 +1,33 @@
+.reserve-time .time-select {
+  display: grid;
+  grid-template-columns: repeat(3, 270px);
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+  gap: 30px;
+  padding: 15px;
+}
+
+.reserve-time .time-button {
+  width: 250px;
+  height: 70px;
+  border-color: #e4e8f5;
+}
+
+.reserve-time .time-button_time {
+  font-size: 24px;
+}
+
+.reserve-time .time-button:disabled {
+  border-color: #f5f6fa;
+  background-color: #f5f6fa;
+}
+
+.reserve-time .time-button[aria-pressed='true'] {
+  border-color: #3b82f6;
+  background-color: #3b82f6;
+}
+
+.reserve-time .time-button[aria-pressed='true'] .time-button_time {
+  color: #fff;
+}
