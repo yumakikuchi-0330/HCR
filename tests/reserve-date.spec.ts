@@ -74,6 +74,21 @@ test.describe('予約日登録画面', () => {
     test('ステッパーの「日付選択」が現在いるところ', async ({ page }) => {
       await expect(page.locator('[aria-current="step"]')).toHaveText('1.日付選択');
     });
+    test('検査オプションが6つ表示され、最初は未選択', async ({ page }) => {
+      for (const optionName of [
+        '胃カメラ',
+        '腹部エコー',
+        '腫瘍マーカー',
+        '乳がん検診',
+        '大腸カメラ',
+        '心臓エコー',
+      ]) {
+        await expect(page.getByRole('button', { name: optionName })).toHaveAttribute(
+          'aria-pressed',
+          'false',
+        );
+      }
+    });
   });
   test.describe('コースと受診日の選択', () => {
     test.beforeEach(async ({ page }) => {
@@ -132,11 +147,61 @@ test.describe('予約日登録画面', () => {
       await page.getByRole('button', { name: '時間を選択する' }).click();
       await expect(page).toHaveURL('/reservations/new/time');
       const state = await page.evaluate(() => window.history.state.usr);
-      expect(state).toEqual({ patientId: 'p1', courseId: 'regular', date: '2026-11-06' });
+      expect(state).toEqual({
+        patientId: 'p1',
+        courseId: 'regular',
+        date: '2026-11-06',
+        options: [],
+      });
     });
     test('戻るを押すと患者新規登録画面に戻る', async ({ page }) => {
       await page.getByRole('button', { name: '戻る' }).click();
       await expect(page).toHaveURL('/reservations/new');
+    });
+  });
+  test.describe('検査オプションの選択', () => {
+    test.beforeEach(async ({ page }) => {
+      await routeReservations(page, []);
+      await openReserveDate(page);
+    });
+    test('オプションを押すと選択され、もう一度押すと解除される', async ({ page }) => {
+      const gastro = page.getByRole('button', { name: '胃カメラ' });
+      await gastro.click();
+      await expect(gastro).toHaveAttribute('aria-pressed', 'true');
+      await gastro.click();
+      await expect(gastro).toHaveAttribute('aria-pressed', 'false');
+    });
+    test('オプションは複数選択できる', async ({ page }) => {
+      const gastro = page.getByRole('button', { name: '胃カメラ' });
+      const echo = page.getByRole('button', { name: '腹部エコー' });
+      await gastro.click();
+      await echo.click();
+      await expect(gastro).toHaveAttribute('aria-pressed', 'true');
+      await expect(echo).toHaveAttribute('aria-pressed', 'true');
+    });
+    test('オプションを選ばなくても時間選択へ進める', async ({ page }) => {
+      await page.getByRole('button', { name: '人間ドック' }).click();
+      await page.locator('[data-date="2026-11-06"]').click();
+      await page.getByRole('button', { name: '時間を選択する' }).click();
+      await expect(page).toHaveURL('/reservations/new/time');
+    });
+    test('選んだオプションを持って時間選択へ進む', async ({ page }) => {
+      await page.getByRole('button', { name: '人間ドック' }).click();
+      await page.locator('[data-date="2026-11-06"]').click();
+      await page.getByRole('button', { name: '胃カメラ' }).click();
+      await page.getByRole('button', { name: '大腸カメラ' }).click();
+      await page.getByRole('button', { name: '時間を選択する' }).click();
+      await expect(page).toHaveURL('/reservations/new/time');
+      const state = await page.evaluate(() => window.history.state.usr);
+      expect(state).toEqual({
+        patientId: 'p1',
+        courseId: 'dock',
+        date: '2026-11-06',
+        options: [
+          { optionId: 1, optionName: '胃カメラ' },
+          { optionId: 5, optionName: '大腸カメラ' },
+        ],
+      });
     });
   });
   test.describe('選べる日と選べない日', () => {
@@ -220,7 +285,7 @@ test.describe('予約日登録画面', () => {
       await routeReservations(page, []);
       await page.goto(RESERVE_DATE_PATH);
       await expect(
-        page.getByText('予約者の情報がありません。患者登録からやり直してください'),
+        page.getByText('予約の情報がありません。患者登録からやり直してください'),
       ).toBeVisible();
       await expect(page.getByRole('button', { name: '時間を選択する' })).toHaveCount(0);
       await expect(page.locator('.calendar')).toHaveCount(0);

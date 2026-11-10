@@ -26,12 +26,14 @@ export const getAvailableDates = (reservations: Reservation[]): AvailableDate[] 
     // その日の予約数を1増やす
     reservedCounts[reservation.date] = (reservedCounts[reservation.date] ?? 0) + 1;
   });
-  return Array.from({ length: RESERVABLE_DAYS }, (_, index) =>
-    dayjs().add(index, 'day').format(DATE_FORMAT),
-  )
-    // 予約数が枠の数より少ない日だけ残す（埋まっている日は選べない）
-    .filter((date) => (reservedCounts[date] ?? 0) < SLOT_COUNT)
-    // 土日祝は休診なので予約できない
-    .filter((date) => !isClosedDay(date))
-    .map((date) => ({ date }));
+  return (
+    Array.from({ length: RESERVABLE_DAYS }, (_, index) =>
+      dayjs().add(index, 'day').format(DATE_FORMAT),
+    )
+      // 予約数が枠の数より少ない日だけ残す（埋まっている日は選べない）
+      .filter((date) => (reservedCounts[date] ?? 0) < SLOT_COUNT)
+      // 土日祝は休診なので予約できない
+      .filter((date) => !isClosedDay(date))
+      .map((date) => ({ date }))
+  );
 };

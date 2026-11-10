@@ -11,8 +11,8 @@ import { RESERVATION_STEPS } from '../../constants/reservation';
 import { getAvailableDates } from '../../utils/reservation';
 import { fetchPatient } from '../../api/patients';
 import { fetchReservations } from '../../api/reservations';
-import type { AvailableDate, Patient } from '../../types/management';
-import { COURSES, CourseId } from '../../types/type';
+import type { AvailableDate, Patient, Option } from '../../types/management';
+import { COURSES, CourseId, OPTIONS } from '../../types/type';
 import './style.css';
 
 // 前の画面から受け取るデータの型
@@ -20,19 +20,20 @@ type LocationState = { patientId?: string } | null;
 
 const ReserveDate = () => {
   const navigate = useNavigate();
-  // 新規登録画面から navigate(..., { state: { patientId } }) で渡された患者ID
-  const { patientId } = (useLocation().state as LocationState) ?? {};
+  const location = useLocation();
+  const state = location.state as LocationState;
+  const patientId = state?.patientId;
   const [patient, setPatient] = useState<Patient | null>(null);
   const [availableDates, setAvailableDates] = useState<AvailableDate[]>([]);
   const [courseId, setCourseId] = useState<CourseId | null>(null);
+  const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loadErrorMessage, setLoadErrorMessage] = useState<string | null>(null);
-  // 「時間を選択する」を押したときの入力エラー
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   useEffect(() => {
     if (!patientId) {
-      setLoadErrorMessage('予約者の情報がありません。患者登録からやり直してください');
+      setLoadErrorMessage('予約の情報がありません。患者登録からやり直してください');
       setIsLoading(false);
       return;
     }
@@ -58,8 +59,10 @@ const ReserveDate = () => {
       setErrorMessage('健診コースと受診日を選択してください');
       return;
     }
-    // 次の画面に、患者ID・コース・日付をまとめて渡す
-    navigate(ROUTES.RESERVATION_TIME, { state: { patientId, courseId, date: selectedDate } });
+    // 次の画面に、患者ID・コース・日付・オプションをまとめて渡す
+    navigate(ROUTES.RESERVATION_TIME, {
+      state: { patientId, courseId, date: selectedDate, options: selectedOptions },
+    });
   };
   const handleSelectDate = (date: string) => {
     setSelectedDate(date);
@@ -70,6 +73,15 @@ const ReserveDate = () => {
     setCourseId(id);
     setErrorMessage(null);
   };
+  const handleSelectOption = (option: Option) => {
+    setSelectedOptions((prevOptions) => {
+      const isSelected = prevOptions.some((item) => item.optionId === option.optionId);
+      if (isSelected) {
+        return prevOptions.filter((item) => item.optionId !== option.optionId);
+      }
+      return [...prevOptions, option];
+    });
+  };
   // 読み込み中・取得エラー・本体のどれを出すかを決める
   const renderContent = () => {
     if (isLoading) {
@@ -78,7 +90,7 @@ const ReserveDate = () => {
     // 取得に失敗した（または患者IDがない）ときは、カレンダーを出さない
     if (loadErrorMessage || !patient) {
       return (
-        <Text fontSize="body" color='#c62828'>
+        <Text fontSize="body" color="#c62828">
           {loadErrorMessage}
         </Text>
       );
@@ -86,13 +98,13 @@ const ReserveDate = () => {
     return (
       <>
         {/* 予約者 */}
-        <Box bg="#fff" px="48px" py="24px" mb="32px">
+        <Box bg="#fff" px="32px" pt="25px" pb="15px" mb="32px">
           <Text fontSize="label" color="#5b6680">
             予約者
-            <Text as="span" fontWeight="bold" color="#000" mx="12px">
+            <Text as="span" fontWeight="bold" color="#000" ml="12px">
               {patient.name}
             </Text>
-            {patient.nameKana}/{dayjs(patient.birthDate).format('YYYY年MM月DD日')}
+            /{patient.nameKana}/{dayjs(patient.birthDate).format('YYYY年MM月DD日')}
           </Text>
         </Box>
         {/* 健診コース */}
@@ -128,6 +140,40 @@ const ReserveDate = () => {
             })}
           </Flex>
         </Box>
+        {/* 検査オプション */}
+        <Box bg="#fff" px="32px" py="24px" mb="24px">
+          <Heading as="h2" fontSize="h2" fontWeight="bold" mb="16px">
+            検査オプション
+            <Text as="span" fontSize="label" fontWeight="normal" color="#5b6680" ml="12px">
+              ＜任意・複数選択可＞
+            </Text>
+          </Heading>
+          <Flex gap="32px" wrap="wrap">
+            {OPTIONS.map((option) => {
+              const isSelected = selectedOptions.some(
+                (selected) => selected.optionId === option.optionId,
+              );
+              return (
+                <Button
+                  key={option.optionId}
+                  aria-pressed={isSelected}
+                  onClick={() => handleSelectOption(option)}
+                  w="290px"
+                  h="60px"
+                  fontSize="h2"
+                  fontWeight="bold"
+                  borderRadius="0"
+                  border="1px solid"
+                  borderColor={isSelected ? '#3b5bdb' : '#d9d9d9'}
+                  bg={isSelected ? '#eef2ff' : '#fff'}
+                  color={isSelected ? '#3b5bdb' : '#000'}
+                >
+                  {option.optionName}
+                </Button>
+              );
+            })}
+          </Flex>
+        </Box>
         {/* 今は1番目の「日付選択」 */}
         <Box mb="24px">
           <Stepper steps={RESERVATION_STEPS} currentStep={0} />
@@ -145,7 +191,7 @@ const ReserveDate = () => {
           />
         </Box>
         {errorMessage && (
-          <Text fontSize="body" color='#c62828' textAlign="center" mb="16px">
+          <Text fontSize="body" color="#c62828" textAlign="center" mb="16px">
             {errorMessage}
           </Text>
         )}
@@ -156,14 +202,8 @@ const ReserveDate = () => {
     <TemplatePage>
       {renderContent()}
       <Flex justify="center" align="center" gap="96px">
-        <AppButton
-          variant="outline"
-          text="戻る"
-          onClick={() => navigate(ROUTES.RESERVATION_NEW)}
-        />
-        {patient && (
-          <AppButton size="large" text="時間を選択する" onClick={goToTimeSelect} />
-        )}
+        <AppButton variant="outline" text="戻る" onClick={() => navigate(ROUTES.RESERVATION_NEW)} />
+        {patient && <AppButton size="large" text="時間を選択する" onClick={goToTimeSelect} />}
       </Flex>
     </TemplatePage>
   );

@@ -1,5 +1,5 @@
 import type { PatientRequest } from './api';
-import type { Patient } from './management';
+import type { Option, Patient } from './management';
 
 // ログインフォームの入力値
 export type LoginFormValues = {
@@ -23,6 +23,16 @@ export const COURSES = [
 export type Course = (typeof COURSES)[number];
 export type CourseId = Course['courseId'];
 
+// 検査オプション
+export const OPTIONS: readonly Option[] = [
+  { optionId: 1, optionName: '胃カメラ' },
+  { optionId: 2, optionName: '腹部エコー' },
+  { optionId: 3, optionName: '腫瘍マーカー' },
+  { optionId: 4, optionName: '乳がん検診' },
+  { optionId: 5, optionName: '大腸カメラ' },
+  { optionId: 6, optionName: '心臓エコー' },
+];
+
 // 時間
 export type TimeSlot = {
   time: string;
@@ -44,16 +54,16 @@ export const TIME_SLOTS: readonly TimeSlot[] = [
   { time: '06:00', isAvailable: false, reservedBy: null },
   { time: '07:00', isAvailable: false, reservedBy: null },
   { time: '08:00', isAvailable: false, reservedBy: null },
-  { time: '09:00', isAvailable: true,  reservedBy: null },
-  { time: '10:00', isAvailable: true,  reservedBy: null },
-  { time: '11:00', isAvailable: true,  reservedBy: null },
-  { time: '12:00', isAvailable: true,  reservedBy: null },
+  { time: '09:00', isAvailable: true, reservedBy: null },
+  { time: '10:00', isAvailable: true, reservedBy: null },
+  { time: '11:00', isAvailable: true, reservedBy: null },
+  { time: '12:00', isAvailable: true, reservedBy: null },
   { time: '13:00', isAvailable: false, reservedBy: null }, // 昼休み
-  { time: '14:00', isAvailable: true,  reservedBy: null },
-  { time: '15:00', isAvailable: true,  reservedBy: null },
-  { time: '16:00', isAvailable: true,  reservedBy: null },
-  { time: '17:00', isAvailable: true,  reservedBy: null },
-  { time: '18:00', isAvailable: true,  reservedBy: null },
+  { time: '14:00', isAvailable: true, reservedBy: null },
+  { time: '15:00', isAvailable: true, reservedBy: null },
+  { time: '16:00', isAvailable: true, reservedBy: null },
+  { time: '17:00', isAvailable: true, reservedBy: null },
+  { time: '18:00', isAvailable: true, reservedBy: null },
   { time: '19:00', isAvailable: false, reservedBy: null },
   { time: '20:00', isAvailable: false, reservedBy: null },
   { time: '21:00', isAvailable: false, reservedBy: null },
