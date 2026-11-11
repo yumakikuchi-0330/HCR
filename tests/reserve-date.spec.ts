@@ -8,6 +8,10 @@ const PATIENT_URL = 'http://localhost:3001/patients/p1';
 const RESERVATIONS_URL = 'http://localhost:3001/reservations';
 // 予約日登録画面のURL
 const RESERVE_DATE_PATH = '/reservations/new/date';
+// 予約時間選択画面のURL
+const RESERVE_TIME_PATH = '/reservations/new/time';
+// テスト用の患者を渡したときの予約日登録画面のURL
+const RESERVE_DATE_URL = `${RESERVE_DATE_PATH}?patientId=p1`;
 // 1日に予約できる枠の数
 const SLOT_COUNT = 9;
 // 90日先の境界を確認するときに、カレンダーを次の月へ進める回数
@@ -40,8 +44,10 @@ const openReserveDate = async (page: Page) => {
   await page.getByText(patient.gender, { exact: true }).click();
   await page.getByLabel('フリガナ').fill(patient.nameKana);
   await page.getByRole('button', { name: '日付を選択する' }).click();
-  await expect(page).toHaveURL(RESERVE_DATE_PATH);
+  await expect(page).toHaveURL(RESERVE_DATE_URL);
 };
+// 今いるURLのパスとクエリパラメータを取り出す
+const getCurrentUrl = (page: Page) => new URL(page.url());
 test.describe('予約日登録画面', () => {
   test.beforeEach(async ({ page }) => {
     await page.clock.setFixedTime(new Date('2026-11-05T10:00:00'));
@@ -116,19 +122,19 @@ test.describe('予約日登録画面', () => {
     test('コースも受診日も選ばないとエラーが出て進めない', async ({ page }) => {
       await page.getByRole('button', { name: '時間を選択する' }).click();
       await expect(page.getByText('健診コースと受診日を選択してください')).toBeVisible();
-      await expect(page).toHaveURL(RESERVE_DATE_PATH);
+      await expect(page).toHaveURL(RESERVE_DATE_URL);
     });
     test('受診日を選ばないとエラーが出て進めない', async ({ page }) => {
       await page.getByRole('button', { name: '人間ドック' }).click();
       await page.getByRole('button', { name: '時間を選択する' }).click();
       await expect(page.getByText('健診コースと受診日を選択してください')).toBeVisible();
-      await expect(page).toHaveURL(RESERVE_DATE_PATH);
+      await expect(page).toHaveURL(RESERVE_DATE_URL);
     });
     test('コースを選ばないとエラーが出て進めない', async ({ page }) => {
       await page.locator('[data-date="2026-11-06"]').click();
       await page.getByRole('button', { name: '時間を選択する' }).click();
       await expect(page.getByText('健診コースと受診日を選択してください')).toBeVisible();
-      await expect(page).toHaveURL(RESERVE_DATE_PATH);
+      await expect(page).toHaveURL(RESERVE_DATE_URL);
     });
     test('エラーが出たあとにコースや日付を選ぶとエラーが消える', async ({ page }) => {
       const errorText = page.getByText('健診コースと受診日を選択してください');
@@ -145,14 +151,12 @@ test.describe('予約日登録画面', () => {
       await page.getByRole('button', { name: '定期健診' }).click();
       await page.locator('[data-date="2026-11-06"]').click();
       await page.getByRole('button', { name: '時間を選択する' }).click();
-      await expect(page).toHaveURL('/reservations/new/time');
-      const state = await page.evaluate(() => window.history.state.usr);
-      expect(state).toEqual({
-        patientId: 'p1',
-        courseId: 'regular',
-        date: '2026-11-06',
-        options: [],
-      });
+      await expect(page).toHaveURL(new RegExp(`${RESERVE_TIME_PATH}\\?`));
+      const url = getCurrentUrl(page);
+      expect(url.searchParams.get('patientId')).toBe('p1');
+      expect(url.searchParams.get('courseId')).toBe('regular');
+      expect(url.searchParams.get('date')).toBe('2026-11-06');
+      expect(url.searchParams.getAll('options')).toEqual([]);
     });
     test('戻るを押すと患者新規登録画面に戻る', async ({ page }) => {
       await page.getByRole('button', { name: '戻る' }).click();
@@ -183,7 +187,7 @@ test.describe('予約日登録画面', () => {
       await page.getByRole('button', { name: '人間ドック' }).click();
       await page.locator('[data-date="2026-11-06"]').click();
       await page.getByRole('button', { name: '時間を選択する' }).click();
-      await expect(page).toHaveURL('/reservations/new/time');
+      await expect(page).toHaveURL(new RegExp(`${RESERVE_TIME_PATH}\\?`));
     });
     test('選んだオプションを持って時間選択へ進む', async ({ page }) => {
       await page.getByRole('button', { name: '人間ドック' }).click();
@@ -191,17 +195,13 @@ test.describe('予約日登録画面', () => {
       await page.getByRole('button', { name: '胃カメラ' }).click();
       await page.getByRole('button', { name: '大腸カメラ' }).click();
       await page.getByRole('button', { name: '時間を選択する' }).click();
-      await expect(page).toHaveURL('/reservations/new/time');
-      const state = await page.evaluate(() => window.history.state.usr);
-      expect(state).toEqual({
-        patientId: 'p1',
-        courseId: 'dock',
-        date: '2026-11-06',
-        options: [
-          { optionId: 1, optionName: '胃カメラ' },
-          { optionId: 5, optionName: '大腸カメラ' },
-        ],
-      });
+      await expect(page).toHaveURL(new RegExp(`${RESERVE_TIME_PATH}\\?`));
+      const url = getCurrentUrl(page);
+      expect(url.searchParams.get('patientId')).toBe('p1');
+      expect(url.searchParams.get('courseId')).toBe('dock');
+      expect(url.searchParams.get('date')).toBe('2026-11-06');
+      // 胃カメラ（1）と大腸カメラ（5）の optionId が渡る
+      expect(url.searchParams.getAll('options')).toEqual(['1', '5']);
     });
   });
   test.describe('選べる日と選べない日', () => {
@@ -280,8 +280,21 @@ test.describe('予約日登録画面', () => {
       await expect(weekday).not.toHaveClass(/is-unavailable/);
     });
   });
+  test.describe('URLを直接開いたとき', () => {
+    test('patientId付きのURLを直接開くと、その患者の予約日登録画面が表示される', async ({
+      page,
+    }) => {
+      await routeReservations(page, []);
+      await page.goto(RESERVE_DATE_URL);
+      await expect(page.getByText('山田太郎')).toBeVisible();
+      await expect(page.locator('.calendar')).toBeVisible();
+      await expect(page.getByRole('button', { name: '時間を選択する' })).toBeVisible();
+    });
+  });
   test.describe('データを表示できないとき', () => {
-    test('URLを直接開くとエラーが出て、戻るボタンだけ表示される', async ({ page }) => {
+    test('patientIdなしでURLを直接開くとエラーが出て、戻るボタンだけ表示される', async ({
+      page,
+    }) => {
       await routeReservations(page, []);
       await page.goto(RESERVE_DATE_PATH);
       await expect(

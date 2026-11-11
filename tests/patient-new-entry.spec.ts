@@ -65,8 +65,8 @@ test.describe('患者新規登録画面', () => {
       birthDate:'2000-01-01',
       gender:'男性'
     });
-    // 登録後、日付選択画面のURLに移動したか確認する
-    await expect(page).toHaveURL('/reservations/new/date')
+    // 登録後、登録した患者のIDを持って日付選択画面のURLに移動したか確認する
+    await expect(page).toHaveURL('/reservations/new/date?patientId=99')
   });
   // ⑤キャンセルボタンを押してホームに戻る
   test('登録キャンセルを押すとホームに戻る', async({ page }) => {

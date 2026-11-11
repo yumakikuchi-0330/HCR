@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Box, Button, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import { ROUTES } from '../../constants/routes';
@@ -15,14 +15,11 @@ import type { AvailableDate, Patient, Option } from '../../types/management';
 import { COURSES, CourseId, OPTIONS } from '../../types/type';
 import './style.css';
 
-// 前の画面から受け取るデータの型
-type LocationState = { patientId?: string } | null;
-
 const ReserveDate = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const state = location.state as LocationState;
-  const patientId = state?.patientId;
+  // 患者登録からURLのクエリパラメータで受け取る
+  const [searchParams] = useSearchParams();
+  const patientId = searchParams.get('patientId');
   const [patient, setPatient] = useState<Patient | null>(null);
   const [availableDates, setAvailableDates] = useState<AvailableDate[]>([]);
   const [courseId, setCourseId] = useState<CourseId | null>(null);
@@ -59,10 +56,19 @@ const ReserveDate = () => {
       setErrorMessage('健診コースと受診日を選択してください');
       return;
     }
-    // 次の画面に、患者ID・コース・日付・オプションをまとめて渡す
-    navigate(ROUTES.RESERVATION_TIME, {
-      state: { patientId, courseId, date: selectedDate, options: selectedOptions },
+    // 患者IDはボタン表示の時点で必ずあるが、型を絞り込むために確認する
+    if (!patientId) {
+      return;
+    }
+    // 次の画面に、患者ID・コース・日付・オプションをURLのクエリパラメータで渡す
+    const params = new URLSearchParams();
+    params.append('patientId', patientId);
+    params.append('courseId', courseId);
+    params.append('date', selectedDate);
+    selectedOptions.forEach((option) => {
+      params.append('options', String(option.optionId));
     });
+    navigate(`${ROUTES.RESERVATION_TIME}?${params}`);
   };
   const handleSelectDate = (date: string) => {
     setSelectedDate(date);
@@ -82,125 +88,117 @@ const ReserveDate = () => {
       return [...prevOptions, option];
     });
   };
-  // 読み込み中・取得エラー・本体のどれを出すかを決める
-  const renderContent = () => {
-    if (isLoading) {
-      return <Spinner />;
-    }
-    // 取得に失敗した（または患者IDがない）ときは、カレンダーを出さない
-    if (loadErrorMessage || !patient) {
-      return (
+  return (
+    <TemplatePage>
+      {/* 読み込み中 → スピナー、取得エラー（または患者IDがない）→ エラー文、それ以外 → 本体 */}
+      {isLoading ? (
+        <Spinner />
+      ) : loadErrorMessage || !patient ? (
         <Text fontSize="body" color="#c62828">
           {loadErrorMessage}
         </Text>
-      );
-    }
-    return (
-      <>
-        {/* 予約者 */}
-        <Box bg="#fff" px="32px" pt="25px" pb="15px" mb="32px">
-          <Text fontSize="label" color="#5b6680">
-            予約者
-            <Text as="span" fontWeight="bold" color="#000" ml="12px">
-              {patient.name}
+      ) : (
+        <>
+          {/* 予約者 */}
+          <Box bg="#fff" px="32px" pt="25px" pb="15px" mb="32px">
+            <Text fontSize="label" color="#5b6680">
+              予約者
+              <Text as="span" fontWeight="bold" color="#000" ml="12px">
+                {patient.name}
+              </Text>
+              /{patient.nameKana}/{dayjs(patient.birthDate).format('YYYY年MM月DD日')}
             </Text>
-            /{patient.nameKana}/{dayjs(patient.birthDate).format('YYYY年MM月DD日')}
-          </Text>
-        </Box>
-        {/* 健診コース */}
-        <Box bg="#fff" px="32px" py="24px" mb="24px">
-          <Heading as="h2" fontSize="h2" fontWeight="bold" mb="16px">
-            健診コース
-          </Heading>
-          <Flex gap="32px">
-            {/* COURSES（人間ドック・定期健診・生活習慣病）を1つずつボタンにする */}
-            {COURSES.map((course) => {
-              // このボタンが選ばれているか
-              const isSelected = course.courseId === courseId;
-              return (
-                <Button
-                  key={course.courseId}
-                  // 押したボタンが選ばれた状態かを、画面を読み上げる機能やテストに伝える
-                  aria-pressed={isSelected}
-                  onClick={() => handleSelectCourse(course.courseId)}
-                  w="290px"
-                  h="60px"
-                  fontSize="h2"
-                  fontWeight="bold"
-                  borderRadius="0"
-                  border="1px solid"
-                  // 選ばれているときは青、選ばれていないときは白地に黒
-                  borderColor={isSelected ? '#3b5bdb' : '#d9d9d9'}
-                  bg={isSelected ? '#eef2ff' : '#fff'}
-                  color={isSelected ? '#3b5bdb' : '#000'}
-                >
-                  {course.courseName}
-                </Button>
-              );
-            })}
-          </Flex>
-        </Box>
-        {/* 検査オプション */}
-        <Box bg="#fff" px="32px" py="24px" mb="24px">
-          <Heading as="h2" fontSize="h2" fontWeight="bold" mb="16px">
-            検査オプション
-            <Text as="span" fontSize="label" fontWeight="normal" color="#5b6680" ml="12px">
-              ＜任意・複数選択可＞
+          </Box>
+          {/* 健診コース */}
+          <Box bg="#fff" px="32px" py="24px" mb="24px">
+            <Heading as="h2" fontSize="h2" fontWeight="bold" mb="16px">
+              健診コース
+            </Heading>
+            <Flex gap="32px">
+              {/* COURSES（人間ドック・定期健診・生活習慣病）を1つずつボタンにする */}
+              {COURSES.map((course) => {
+                // このボタンが選ばれているか
+                const isSelected = course.courseId === courseId;
+                return (
+                  <Button
+                    key={course.courseId}
+                    // 押したボタンが選ばれた状態かを、画面を読み上げる機能やテストに伝える
+                    aria-pressed={isSelected}
+                    onClick={() => handleSelectCourse(course.courseId)}
+                    w="290px"
+                    h="60px"
+                    fontSize="h2"
+                    fontWeight="bold"
+                    borderRadius="0"
+                    border="1px solid"
+                    // 選ばれているときは青、選ばれていないときは白地に黒
+                    borderColor={isSelected ? '#3b5bdb' : '#d9d9d9'}
+                    bg={isSelected ? '#eef2ff' : '#fff'}
+                    color={isSelected ? '#3b5bdb' : '#000'}
+                  >
+                    {course.courseName}
+                  </Button>
+                );
+              })}
+            </Flex>
+          </Box>
+          {/* 検査オプション */}
+          <Box bg="#fff" px="32px" py="24px" mb="24px">
+            <Heading as="h2" fontSize="h2" fontWeight="bold" mb="16px">
+              検査オプション
+              <Text as="span" fontSize="label" fontWeight="normal" color="#5b6680" ml="12px">
+                ＜任意・複数選択可＞
+              </Text>
+            </Heading>
+            <Flex gap="32px" wrap="wrap">
+              {OPTIONS.map((option) => {
+                const isSelected = selectedOptions.some(
+                  (selected) => selected.optionId === option.optionId,
+                );
+                return (
+                  <Button
+                    key={option.optionId}
+                    aria-pressed={isSelected}
+                    onClick={() => handleSelectOption(option)}
+                    w="290px"
+                    h="60px"
+                    fontSize="h2"
+                    fontWeight="bold"
+                    borderRadius="0"
+                    border="1px solid"
+                    borderColor={isSelected ? '#3b5bdb' : '#d9d9d9'}
+                    bg={isSelected ? '#eef2ff' : '#fff'}
+                    color={isSelected ? '#3b5bdb' : '#000'}
+                  >
+                    {option.optionName}
+                  </Button>
+                );
+              })}
+            </Flex>
+          </Box>
+          {/* 今は1番目の「日付選択」 */}
+          <Box mb="24px">
+            <Stepper steps={RESERVATION_STEPS} currentStep={0} />
+          </Box>
+          {/* 受診日のカレンダー */}
+          <Box className="reserve-date" bg="#fff" px="80px" py="48px" mb="32px">
+            <Heading as="h2" fontSize="h2" fontWeight="bold" mb="16px">
+              受診日を選択
+            </Heading>
+            {/* events: 予約できる日,selectedDate: 選ばれている日、onSelect: 日付を押したとき */}
+            <Calendar
+              events={availableDates}
+              selectedDate={selectedDate}
+              onSelect={handleSelectDate}
+            />
+          </Box>
+          {errorMessage && (
+            <Text fontSize="body" color="#c62828" textAlign="center" mb="16px">
+              {errorMessage}
             </Text>
-          </Heading>
-          <Flex gap="32px" wrap="wrap">
-            {OPTIONS.map((option) => {
-              const isSelected = selectedOptions.some(
-                (selected) => selected.optionId === option.optionId,
-              );
-              return (
-                <Button
-                  key={option.optionId}
-                  aria-pressed={isSelected}
-                  onClick={() => handleSelectOption(option)}
-                  w="290px"
-                  h="60px"
-                  fontSize="h2"
-                  fontWeight="bold"
-                  borderRadius="0"
-                  border="1px solid"
-                  borderColor={isSelected ? '#3b5bdb' : '#d9d9d9'}
-                  bg={isSelected ? '#eef2ff' : '#fff'}
-                  color={isSelected ? '#3b5bdb' : '#000'}
-                >
-                  {option.optionName}
-                </Button>
-              );
-            })}
-          </Flex>
-        </Box>
-        {/* 今は1番目の「日付選択」 */}
-        <Box mb="24px">
-          <Stepper steps={RESERVATION_STEPS} currentStep={0} />
-        </Box>
-        {/* 受診日のカレンダー */}
-        <Box className="reserve-date" bg="#fff" px="80px" py="48px" mb="32px">
-          <Heading as="h2" fontSize="h2" fontWeight="bold" mb="16px">
-            受診日を選択
-          </Heading>
-          {/* events: 予約できる日,selectedDate: 選ばれている日、onSelect: 日付を押したとき */}
-          <Calendar
-            events={availableDates}
-            selectedDate={selectedDate}
-            onSelect={handleSelectDate}
-          />
-        </Box>
-        {errorMessage && (
-          <Text fontSize="body" color="#c62828" textAlign="center" mb="16px">
-            {errorMessage}
-          </Text>
-        )}
-      </>
-    );
-  };
-  return (
-    <TemplatePage>
-      {renderContent()}
+          )}
+        </>
+      )}
       <Flex justify="center" align="center" gap="96px">
         <AppButton variant="outline" text="戻る" onClick={() => navigate(ROUTES.RESERVATION_NEW)} />
         {patient && <AppButton size="large" text="時間を選択する" onClick={goToTimeSelect} />}
