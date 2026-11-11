@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 import './style.css';
 
 type StepperProps = {
-  steps: string[];
+  steps: readonly string[];
   currentStep: number;
 };
 
@@ -14,16 +14,16 @@ const getStatus = (index: number, currentStep: number): Status => {
   if (index === currentStep) return 'current';
   return 'upcoming';
 };
-export const Stepper = ({ steps, currentStep}: StepperProps) => {
-  return(
+export const Stepper = ({ steps, currentStep }: StepperProps) => {
+  return (
     <ol className="stepper">
-        {steps.map((step, index) => {
+      {steps.map((step, index) => {
         const status = getStatus(index, currentStep);
-        return(
+        return (
           <li
-          key={step}
-          className={`stepper_item stepper_item--${status}`}
-          aria-current={status === 'current' ? 'step' : undefined}
+            key={step}
+            className={`stepper_item stepper_item--${status}`}
+            aria-current={status === 'current' ? 'step' : undefined}
           >
             <span className="stepper_cycle" />
             <span className="stepper_label">{step}</span>
@@ -31,7 +31,7 @@ export const Stepper = ({ steps, currentStep}: StepperProps) => {
         );
       })}
     </ol>
-  )
+  );
 };
 
 export default Stepper;

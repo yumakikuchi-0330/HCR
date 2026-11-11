@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import PatientNewEntry from './pages/PatientNewEntry';
+import ReserveDate from './pages/ReserveDate';
 import PatientDetail from './pages/PatientDetail';
 import PatientEdit from './pages/PatientEdit';
 
@@ -11,6 +12,8 @@ const AppRoutes = () => (
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Home />} />
       <Route path="/reservations/new" element={<PatientNewEntry />} />
+      {/* 患者新規登録の「日付を選択する」から遷移する */}
+      <Route path="/reservations/new/date" element={<ReserveDate />} />
       {/* 編集画面の「保存する」「編集キャンセル」から戻ってくる */}
       <Route path="/patients/:id" element={<PatientDetail />} />
       <Route path="/patients/:id/edit" element={<PatientEdit />} />
