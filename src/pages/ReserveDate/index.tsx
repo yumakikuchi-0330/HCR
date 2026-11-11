@@ -90,7 +90,7 @@ const ReserveDate = () => {
   };
   return (
     <TemplatePage>
-      {/* 読み込み中 → スピナー、取得エラー（または患者IDがない）→ エラー文、それ以外 → 本体 */}
+      {/* 読み込み中: スピナー,取得エラー: エラー文 → 本体 */}
       {isLoading ? (
         <Spinner />
       ) : loadErrorMessage || !patient ? (
