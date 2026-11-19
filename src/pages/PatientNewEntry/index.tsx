@@ -68,7 +68,7 @@ const PatientNewEntry = () => {
       )
     : undefined;
   const goToDateSelect = (patientId: string) => {
-    navigate(ROUTES.RESERVATION_DATE, { state: { patientId } });
+    navigate(`${ROUTES.RESERVATION_DATE}?patientId=${patientId}`);
   };
   // 登録済みならそのまま日付選択へ、未登録なら患者を登録してから日付選択へ
   const onSubmit = async (values: PatientFormValues) => {
@@ -129,10 +129,16 @@ const PatientNewEntry = () => {
           </Heading>
           <SimpleGrid columns={3} gap="40px">
             <FormField label="生年月日" isRequired errorMessage={errors.birthDate?.message}>
-              <Input type="date" {...register('birthDate', { required: '生年月日を入力してください' })} />
+              <Input
+                type="date"
+                {...register('birthDate', { required: '生年月日を入力してください' })}
+              />
             </FormField>
             <FormField label="氏名" isRequired errorMessage={errors.name?.message}>
-              <Input placeholder="山田太郎" {...register('name', { required: '氏名を入力してください' })} />
+              <Input
+                placeholder="山田太郎"
+                {...register('name', { required: '氏名を入力してください' })}
+              />
             </FormField>
             <FormField label="性別" isRequired errorMessage={errors.gender?.message}>
               <Controller
