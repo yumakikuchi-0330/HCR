@@ -1,0 +1,31 @@
+.reserve-complete .reserve-complete_icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #3b82f6;
+  color: #fff;
+  font-size: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.reserve-complete .reserve-complete_summary {
+  width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reserve-complete .reserve-complete_row {
+  align-items: center;
+  padding: 6px 0;
+  font-size: 12px;
+}
+
+.reserve-complete .reserve-complete_label {
+  width: 80px;
+  color: #5b6680;
+}
+
+.reserve-complete p {
+  margin: 0;
+}

@@ -16,3 +16,5 @@ export const createReservation = (data: ReservationRequest): Promise<Reservation
 // 予約を更新（put通信を使って予約内容の書き換え）
 export const updateReservation = (id: string, data: ReservationRequest): Promise<Reservation> =>
   put(`/reservations/${id}`, data);
+// 完了画面で使う予約IDから1件取得
+export const fetchReservation = (id: string): Promise<Reservation> => get(`/reservations/${id}`);
