@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Box, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import { ROUTES } from '../../constants/routes';
@@ -12,24 +12,18 @@ import { getTimeSlots } from '../../utils/timeSlot';
 import { fetchPatient } from '../../api/patients';
 import { fetchReservationsDate } from '../../api/reservations';
 import type { Patient } from '../../types/management';
-import { COURSES, CourseId, TimeSlot } from '../../types/type';
+import { COURSES, TimeSlot } from '../../types/type';
 import './style.css';
 
 const CURRENT_STEP = 1;
 
-type LocationState = {
-  patientId?: string;
-  courseId?: CourseId;
-  date?: string;
-} | null;
-
 const ReserveTime = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const state = location.state as LocationState;
-  const patientId = state?.patientId;
-  const courseId = state?.courseId;
-  const date = state?.date;
+  const [searchParams] = useSearchParams();
+  const patientId = searchParams.get('patientId');
+  // URLのコースIDが存在するコースか確認する（存在しなければundefined）
+  const course = COURSES.find((item) => item.courseId === searchParams.get('courseId'));
+  const date = searchParams.get('date');
   const [patient, setPatient] = useState<Patient | null>(null);
   const [slots, setSlots] = useState<TimeSlot[]>([]);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
@@ -38,7 +32,7 @@ const ReserveTime = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   useEffect(() => {
     // 前の画面から患者ID・コースID・日付のどれかが欠けていたら、取得せずにエラーを出す
-    if (!patientId || !courseId || !date) {
+    if (!patientId || !course || !date) {
       setLoadErrorMessage('予約の情報がありません。患者登録からやり直してください');
       setIsLoading(false);
       return;
@@ -59,7 +53,7 @@ const ReserveTime = () => {
       }
     };
     loadData();
-  }, [patientId, courseId, date]);
+  }, [patientId, course, date]);
   const handleSelectTime = (time: string) => {
     setSelectedTime(time);
     setErrorMessage(null);
@@ -69,10 +63,9 @@ const ReserveTime = () => {
       setErrorMessage('受診時間を選択してください');
       return;
     }
-    // 次の予約確認画面に、患者ID・コース・日付・時間をまとめて渡す
-    navigate(ROUTES.RESERVATION_CONFIRM, {
-      state: { patientId, courseId, date, time: selectedTime },
-    });
+    const params = new URLSearchParams(searchParams);
+    params.set('time', selectedTime);
+    navigate(`${ROUTES.RESERVATION_CONFIRM}?${params}`);
   };
   // 読み込み中・取得エラー・本体のどれを出すか
   const renderContent = () => {
@@ -81,14 +74,13 @@ const ReserveTime = () => {
       return <Spinner />;
     }
     // 取得に失敗したときは、時間の一覧を出さない
-    if (loadErrorMessage || !patient) {
+    if (loadErrorMessage || !patient || !course) {
       return (
         <Text fontSize="body" color="#c62828" mb="32px">
           {loadErrorMessage}
         </Text>
       );
     }
-    const courseName = COURSES.find((course) => course.courseId === courseId)?.courseName;
     return (
       <>
         {/* 選択中の内容（患者名/コース/選択した日付） */}
@@ -96,7 +88,7 @@ const ReserveTime = () => {
           <Text fontSize="label" color="#5b6680">
             選択中
             <Text as="span" fontWeight="bold" color="#000" ml="15px">
-              {patient.name}/{courseName}/{dayjs(date).format('YYYY年M月D日')}
+              {patient.name}/{course.courseName}/{dayjs(date).format('YYYY年M月D日')}
             </Text>
           </Text>
         </Box>
@@ -126,7 +118,7 @@ const ReserveTime = () => {
         <AppButton
           variant="outline"
           text="戻る"
-          onClick={() => navigate(ROUTES.RESERVATION_DATE, { state: { patientId } })}
+          onClick={() => navigate(`${ROUTES.RESERVATION_DATE}?patientId=${patientId}`)}
         />
         {patient && <AppButton size="large" text="予約を確認する" onClick={goToConfirm} />}
       </Flex>

@@ -1,0 +1,17 @@
+.reserve-confirm .reserve-confirm_row {
+  align-items: center;
+  padding: 24px 0;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.reserve-confirm .reserve-confirm_row:last-child {
+  border-bottom: none;
+}
+
+.reserve-confirm .reserve-confirm_label {
+  width: 160px;
+}
+
+.reserve-confirm .reserve-confirm_row p {
+  margin: 0;
+}

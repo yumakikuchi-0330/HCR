@@ -6,6 +6,7 @@ import ReserveDate from './pages/ReserveDate';
 import PatientDetail from './pages/PatientDetail';
 import PatientEdit from './pages/PatientEdit';
 import ReserveTime from './pages/ReserveTime';
+import ReserveConfirm from './pages/ReserveConfirm';
 
 const AppRoutes = () => (
   <BrowserRouter>
@@ -20,6 +21,7 @@ const AppRoutes = () => (
       <Route path="/patients/:id/edit" element={<PatientEdit />} />
       {/* 予約日登録の「時間を選択する」から遷移する */}
       <Route path="/reservations/new/time" element={<ReserveTime />} />
+      <Route path="/reservations/new/confirm" element={<ReserveConfirm />} />
     </Routes>
   </BrowserRouter>
 );
