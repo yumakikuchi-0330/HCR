@@ -14,6 +14,7 @@ import type { PatientFormValues } from '../../types/type';
 import dayjs from 'dayjs';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { patientSchema } from './schema';
+import { ROUTES } from '../../constants/routes';
 
 const VISIT_DATE_FORMAT = 'YYYY年MM月DD日';
 // 前回受診日の表示
@@ -89,7 +90,7 @@ const PatientEdit = () => {
     loadPatient();
   }, [id, reset]);
   // 患者詳細画面に戻る
-  const goToDetail = () => navigate(`/patients/${id}`);
+  const goToDetail = () => navigate(ROUTES.PATIENT_DETAIL.replace(':id', id));
   const onSubmit = async (values: PatientFormValues) => {
     // 前に出ていたエラーメッセージを消す
     setErrorMessage(null);

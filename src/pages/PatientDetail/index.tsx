@@ -65,7 +65,10 @@ const PatientDetail = () => {
           <AppButton variant="outline" text="戻る" onClick={() => navigate(ROUTES.HOME)} />
           {/* 患者情報編集画面へ移動する（取得に失敗したときは編集できないので出さない） */}
           {patient && (
-            <AppButton text="編集する" onClick={() => navigate(`/patients/${id}/edit`)} />
+            <AppButton
+              text="編集する"
+              onClick={() => navigate(ROUTES.PATIENT_EDIT.replace(':id', id))}
+            />
           )}
         </Flex>
       </Flex>
