@@ -81,7 +81,9 @@ const ReserveConfirm = () => {
         options: params.options,
         status: 'before',
       });
-      navigate(`${ROUTES.RESERVATION_COMPLETE}?reservationId=${reservation.id}`);
+      navigate(`${ROUTES.RESERVATION_COMPLETE}?reservationId=${reservation.id}`, {
+        replace: true,
+      });
     } catch {
       setErrorMessage('予約の登録に失敗しました。もう一度お試しください');
       setIsSubmitting(false);
