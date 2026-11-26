@@ -15,10 +15,34 @@ const patients = [
 // テスト用の予約データ
 // わざと 10:00 → 09:00 の順に並べておく（画面で時間順に並び替えられるかを確かめるため）
 const reservations = [
-  { id: 'r1', patientId: 'p1', courseId: 'dock', date: '2026-10-29', time: '10:00', options: [{ optionId: 1, optionName: '胃カメラ' }], status: 'before' },
-  { id: 'r2', patientId: 'p2', courseId: 'regular', date: '2026-10-29', time: '09:00', options: [], status: 'complete' },
+  {
+    id: 'r1',
+    patientId: 'p1',
+    courseId: 'dock',
+    date: '2026-10-29',
+    time: '10:00',
+    options: [{ optionId: 1, optionName: '胃カメラ' }],
+    status: 'before',
+  },
+  {
+    id: 'r2',
+    patientId: 'p2',
+    courseId: 'regular',
+    date: '2026-10-29',
+    time: '09:00',
+    options: [],
+    status: 'complete',
+  },
   // 別の日（10/30）の予約。カレンダーで日付を切り替えるテストで使う
-  { id: 'r3', patientId: 'p2', courseId: 'lifestyle', date: '2026-10-30', time: '11:00', options: [], status: 'inProgress' },
+  {
+    id: 'r3',
+    patientId: 'p2',
+    courseId: 'lifestyle',
+    date: '2026-10-30',
+    time: '11:00',
+    options: [],
+    status: 'inProgress',
+  },
 ];
 
 test.describe('ホーム画面', () => {
@@ -126,14 +150,14 @@ test.describe('ホーム画面', () => {
     await expect(page).toHaveURL('/reservations/new');
   });
   // ⑧ 詳細ボタン
-  test('詳細ボタンを押すと予約詳細のURLに移動する', async ({ page }) => {
+  test('詳細ボタンを押すと患者詳細のURLに移動する', async ({ page }) => {
     await page.goto('/');
     // 「詳細」ボタンは行の数だけあるので、まず「山田太郎」の行に絞り込む
     // name: /山田太郎/ → 行の中に「山田太郎」を含む行（正規表現なので部分一致）
     const row = page.getByRole('row', { name: /山田太郎/ });
     // 絞り込んだ行の中の「詳細」ボタンをクリックする
     await row.getByRole('button', { name: '詳細' }).click();
-    // 山田太郎の予約（id: r1）の詳細URLに移動したか
-    await expect(page).toHaveURL('/reservations/r1');
+    // 山田太郎（患者ID: p1）の患者詳細URLに移動したか
+    await expect(page).toHaveURL('/patients/p1');
   });
 });

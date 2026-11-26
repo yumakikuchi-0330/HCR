@@ -8,6 +8,7 @@ import PatientInfo from '../../components/PatientInfo';
 // fetchPatient: 患者を1人分取得するAPI
 import { fetchPatient } from '../../api/patients';
 import type { Patient } from '../../types/management';
+import { ROUTES } from '../../constants/routes';
 
 const PatientDetail = () => {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ const PatientDetail = () => {
         </Heading>
         <Flex gap="16px">
           {/* ホーム画面に戻る */}
-          <AppButton variant="outline" text="戻る" onClick={() => navigate('/')} />
+          <AppButton variant="outline" text="戻る" onClick={() => navigate(ROUTES.HOME)} />
           {/* 患者情報編集画面へ移動する（取得に失敗したときは編集できないので出さない） */}
           {patient && (
             <AppButton text="編集する" onClick={() => navigate(`/patients/${id}/edit`)} />
