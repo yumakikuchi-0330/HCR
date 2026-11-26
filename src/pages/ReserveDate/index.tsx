@@ -15,16 +15,23 @@ import type { AvailableDate, Patient, Option } from '../../types/management';
 import { COURSES, CourseId, OPTIONS } from '../../types/type';
 import './style.css';
 
+const CURRENT_STEP = 0;
+
 const ReserveDate = () => {
   const navigate = useNavigate();
   // 患者登録からURLのクエリパラメータで受け取る
   const [searchParams] = useSearchParams();
   const patientId = searchParams.get('patientId');
+  // 時間選択画面から戻ってきたときは、URLのクエリから前回の選択を復元する
+  const initialCourse = COURSES.find((item) => item.courseId === searchParams.get('courseId'));
+  const initialOptionIds = searchParams.getAll('options');
   const [patient, setPatient] = useState<Patient | null>(null);
   const [availableDates, setAvailableDates] = useState<AvailableDate[]>([]);
-  const [courseId, setCourseId] = useState<CourseId | null>(null);
-  const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [courseId, setCourseId] = useState<CourseId | null>(initialCourse?.courseId ?? null);
+  const [selectedOptions, setSelectedOptions] = useState<Option[]>(
+    OPTIONS.filter((option) => initialOptionIds.includes(String(option.optionId))),
+  );
+  const [selectedDate, setSelectedDate] = useState<string | null>(searchParams.get('date'));
   const [isLoading, setIsLoading] = useState(true);
   const [loadErrorMessage, setLoadErrorMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -178,7 +185,7 @@ const ReserveDate = () => {
           </Box>
           {/* 今は1番目の「日付選択」 */}
           <Box mb="24px">
-            <Stepper steps={RESERVATION_STEPS} currentStep={0} />
+            <Stepper steps={RESERVATION_STEPS} currentStep={CURRENT_STEP} />
           </Box>
           {/* 受診日のカレンダー */}
           <Box className="reserve-date" bg="#fff" px="80px" py="48px" mb="32px">
