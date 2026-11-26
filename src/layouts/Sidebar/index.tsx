@@ -29,7 +29,7 @@ export const Sidebar = () => {
       px="20px"
     >
       {/* VStack縦方向、navタグ */}
-      <VStack as="nav" gap="24px">
+      <VStack as="nav" gap="24px" align="stretch">
         {/* 1回目はホーム、2回目は患者検索 */}
         {MENU_ITEMS.map((item) => (
           <Link
@@ -37,13 +37,16 @@ export const Sidebar = () => {
             asChild
             color="#202f55"
             borderRadius="6px"
+            textDecoration="none"
+            px="12px"
+            py="8px"
             _hover={{ textDecoration: 'none', backgroundColor: 'blue.50' }}
           >
             <NavLink to={item.to} end>
               {/* HStack横方向 */}
               <HStack gap="10px">
                 <Icon as={item.icon} boxSize="14px" />
-                <Text fontSize="14px" fontWeight="bold">
+                <Text as="span" fontSize="14px" fontWeight="bold">
                   {item.label}
                 </Text>
               </HStack>
