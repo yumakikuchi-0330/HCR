@@ -22,6 +22,7 @@ import type { Patient, Reservation } from '../../types/management';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ja';
 import Calendar from '../../components/Calendar';
+import { ROUTES } from '../../constants/routes';
 
 type Status = Reservation['status'];
 // ステータスの表示名
@@ -171,7 +172,9 @@ const Home = () => {
                       size="xs"
                       variant="outline"
                       colorPalette="blue"
-                      onClick={() => navigate(`/reservations/${reservation.id}`)}
+                      onClick={() =>
+                        navigate(ROUTES.PATIENT_DETAIL.replace(':id', reservation.patientId))
+                      }
                     >
                       詳細
                     </Button>
@@ -229,7 +232,7 @@ const Home = () => {
         <Box w="300px" flexShrink={0} bg="#fff" p="8px">
           <Calendar selectedDate={selectedDate} onSelect={setSelectedDate} />
         </Box>
-        <AppButton size="small" text="新規予約" onClick={() => navigate('/reservations/new')} />
+        <AppButton size="small" text="新規予約" onClick={() => navigate(ROUTES.RESERVATION_NEW)} />
       </Flex>
       <SimpleGrid columns={STATUS_LIST.length} gap="16px" mb="24px">
         {STATUS_LIST.map((status) => (

@@ -37,18 +37,17 @@ const reservations = [
   },
 ];
 
-// 予約日登録画面から受け取るデータ
-const locationState = { patientId: '1', courseId: 'dock', date: DATE };
+// 予約日登録画面からURLのクエリパラメータで受け取るデータ
+const queryParams = { patientId: '1', courseId: 'dock', date: DATE };
 
-// 前の画面から遷移してきた状態で開く
-const openWithState = async (page: Page) => {
-  await page.addInitScript((usr) => {
-    window.history.replaceState({ usr, key: 'e2e', idx: 0 }, '', window.location.href);
-  }, locationState);
-  await page.goto(PAGE_PATH);
+// 前の画面から遷移してきた状態（クエリ付きのURL）で開く
+const openWithQuery = async (page: Page) => {
+  await page.goto(`${PAGE_PATH}?${new URLSearchParams(queryParams)}`);
 };
 
-const getNavigationState = (page: Page) => page.evaluate(() => window.history.state.usr);
+// 今のURLのクエリパラメータをオブジェクトで取り出す
+const getQueryParams = (page: Page) =>
+  Object.fromEntries(new URL(page.url()).searchParams.entries());
 // API のモックをまとめて登録する
 const routeApis = async (page: Page) => {
   await page.route(PATIENT_URL, (route) => route.fulfill({ json: patient }));
@@ -66,7 +65,7 @@ test.describe('予約時間選択画面', () => {
   });
   test.describe('前の画面から遷移してきた時', () => {
     test.beforeEach(async ({ page }) => {
-      await openWithState(page);
+      await openWithQuery(page);
     });
     test.describe('画面の表示', () => {
       test('選択中の内容（患者名/コース/日付）が表示される', async ({ page }) => {
@@ -125,15 +124,18 @@ test.describe('予約時間選択画面', () => {
       test('「予約を確認する」ボタンで次の画面に渡される', async ({ page }) => {
         await timeButton(page, '09:00').click();
         await page.getByRole('button', { name: '予約を確認する' }).click();
-        expect(await getNavigationState(page)).toEqual({ ...locationState, time: '09:00' });
+        await expect(page).toHaveURL(
+          '/reservations/new/confirm?patientId=1&courseId=dock&date=2026-11-09&time=09%3A00',
+        );
       });
-      test('「戻る」で予約日登録画面に戻る', async ({ page }) => {
+      test('「戻る」で予約日登録画面に戻り、選んだ内容がURLに残る', async ({ page }) => {
         await page.route('http://localhost:3001/reservations', (route) =>
           route.fulfill({ json: [] }),
         );
         await page.getByRole('button', { name: '戻る' }).click();
-        await expect(page).toHaveURL('/reservations/new/date');
-        expect(await getNavigationState(page)).toEqual({ patientId: '1' });
+        await expect(page).toHaveURL(
+          '/reservations/new/date?patientId=1&courseId=dock&date=2026-11-09',
+        );
       });
     });
   });

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState } from 'react';
 import LoginForm from '../../components/LoginForm';
 import type { LoginFormValues } from '../../types/type';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../constants/routes';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ const Login = () => {
   const handleLogin = (values: LoginFormValues) => {
     // APIができたら'/'部分を置き換える
     if (values.loginId === 'admin' && values.password === 'password') {
-      navigate('/');
+      navigate(ROUTES.HOME);
     } else {
       setErrorMessage('ログインIDまたはパスワードが正しくありません');
     }

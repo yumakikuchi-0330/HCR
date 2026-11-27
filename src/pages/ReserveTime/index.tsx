@@ -67,6 +67,15 @@ const ReserveTime = () => {
     params.set('time', selectedTime);
     navigate(`${ROUTES.RESERVATION_CONFIRM}?${params}`);
   };
+  // 予約日画面に戻る（選んだコース・日付・オプションを残すため、受け取ったクエリをそのまま渡す）
+  const goBack = () => {
+    if (!patientId) {
+      navigate(ROUTES.RESERVATION_NEW);
+      return;
+    }
+    const backParams = new URLSearchParams(searchParams);
+    navigate(`${ROUTES.RESERVATION_DATE}?${backParams}`);
+  };
   // 読み込み中・取得エラー・本体のどれを出すか
   const renderContent = () => {
     // 読み込み中はスピナーを表示
@@ -115,11 +124,7 @@ const ReserveTime = () => {
     <TemplatePage>
       {renderContent()}
       <Flex justify="center" align="center" gap="96px">
-        <AppButton
-          variant="outline"
-          text="戻る"
-          onClick={() => navigate(`${ROUTES.RESERVATION_DATE}?patientId=${patientId}`)}
-        />
+        <AppButton variant="outline" text="戻る" onClick={goBack} />
         {patient && <AppButton size="large" text="予約を確認する" onClick={goToConfirm} />}
       </Flex>
     </TemplatePage>
